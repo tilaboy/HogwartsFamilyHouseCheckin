@@ -1,0 +1,14 @@
+# 本地真实数据（含孩子姓名与打卡记录），不入库
+data/db.json
+data/db.json.broken.*
+data/*.backup.*
+data/*.json
+
+# 依赖与系统文件
+node_modules/
+.DS_Store
+*.log
+.env
+
+# 保留目录占位
+!data/.gitkeep

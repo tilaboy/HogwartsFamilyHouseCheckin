@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="霍格沃茨打卡">
+<meta name="theme-color" content="#F2E3C6">
+<title>霍格沃茨每日打卡 · 家庭版</title>
+<link rel="stylesheet" href="/styles.css">
+<link rel="icon" href="/icon.svg">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="crest" id="crest"></div>
+    <div class="brand-txt">
+      <h1>霍格沃茨家庭分院</h1>
+      <p id="brandSub">每日打卡</p>
+    </div>
+  </div>
+
+  <div class="topbar-right">
+    <button class="pill hat-pill" id="hatBtn" title="重新分院 / 换人">
+      <span class="ic" id="hatIc"></span><span id="hatLabel">分院</span>
+    </button>
+    <div class="pill date-pill">
+      <span class="ic" data-icon="calendar"></span>
+      <span id="dateText">—</span>
+    </div>
+    <div class="pill points-pill">
+      <span class="ic" data-icon="star"></span>
+      <span id="weekPointsText">本周 0 分</span>
+    </div>
+    <div class="pill sync-pill" id="syncPill" title="两台平板自动同步">
+      <span class="dot"></span><span id="syncText">已同步</span>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button class="tab is-active" data-tab="today"><span class="ic" data-icon="check"></span>今日打卡</button>
+  <button class="tab" data-tab="schedule"><span class="ic" data-icon="calendar"></span>课后课表</button>
+  <button class="tab" data-tab="points"><span class="ic" data-icon="trophy"></span>学院分与徽章</button>
+  <button class="tab" data-tab="parent"><span class="ic" data-icon="lock"></span>家长端</button>
+</nav>
+
+<main id="view" class="view"></main>
+
+<div class="toast" id="toast"></div>
+
+<!-- 分院帽开场页 -->
+<div class="hat-intro" id="hatIntro" hidden>
+  <div class="hat-stars" aria-hidden="true"></div>
+  <div class="hat-stage">
+    <div class="hat-figure" id="hatFigure"></div>
+    <h2 class="hat-title">霍格沃茨家庭分院</h2>
+    <p class="hat-sub" id="hatSub">戴上分院帽——今天是谁来打卡？</p>
+    <div class="hat-picks" id="hatPicks"></div>
+    <div class="hat-houses" id="hatHouses" hidden></div>
+    <div class="hat-result" id="hatResult" hidden></div>
+    <button class="hat-skip" id="hatSkip">爸爸妈妈？输家长密码进入（两个孩子都不锁定）</button>
+  </div>
+</div>
+
+<!-- 家长密码弹层 -->
+<div class="modal-mask" id="pinMask" hidden>
+  <div class="modal">
+    <h3>家长端</h3>
+    <p class="muted">只有爸爸妈妈能改打卡项和分值</p>
+    <input id="pinInput" type="password" inputmode="numeric" maxlength="6" placeholder="4-6 位家长密码" autocomplete="off">
+    <div class="modal-btns">
+      <button class="btn ghost" id="pinCancel">取消</button>
+      <button class="btn primary" id="pinOk">进入</button>
+    </div>
+    <p class="err" id="pinErr" hidden>密码不对</p>
+  </div>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>
