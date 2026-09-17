@@ -85,6 +85,13 @@ Scholastic 阅读用两档（保留原有 15 分钟 = 10 分的价值）：`15�
 
 数据存在 `data/db.json`（不入库，首次运行自动生成）。
 
+数据目录可以用 `DATA_DIR` 指向别处。正式部署时指向代码目录**之外**的绝对路径，
+这样更新代码（整目录替换 / `rsync --delete`）永远碰不到打卡记录：
+
+```bash
+DATA_DIR=/var/lib/hogwarts-checkin PORT=3000 node server.js
+```
+
 **换机器或担心丢数据**，家长端点「导出备份」下载一个 json，再导回来：
 
 ```bash
@@ -122,6 +129,31 @@ curl -X POST http://localhost:3000/api/pin \
 | POST | `/api/pin` | 家长 | 改家长密码 |
 
 家长权限通过 `x-pin` 请求头、URL 参数或请求体任一路径校验。
+
+---
+
+## 部署到自己的服务器
+
+`deploy/` 下是一套可重复执行的部署脚本，把应用放到一台自己的轻量服务器上长期运行：
+
+```bash
+# 1. 服务器初始化（一次性）
+scp -r deploy root@<服务器IP>:/tmp/
+ssh root@<服务器IP> 'sudo bash /tmp/deploy/setup.sh'
+
+# 2. 上传代码（每次改动后重跑）
+SERVER=root@<服务器IP> bash deploy/deploy.sh
+```
+
+装好 Node、注册开机自启的 systemd 服务、配每日备份（留 30 天）、开防火墙。
+**代码和数据分两个目录**，更新代码不会碰数据；`deploy.sh` 在服务器已有数据时绝不用线上数据覆盖。
+
+为什么不用免费 PaaS：这个应用把状态写在**一个 JSON 文件**里，需要一块真磁盘。
+Render 免费版、Vercel、Netlify 这类文件系统「用完即弃」的平台，一重新部署记录就没了。
+
+可选：配好域名 + ICP 备案后，用 `deploy/Caddyfile` 开启自动 HTTPS。
+
+详见 [`deploy/README.md`](deploy/README.md)。
 
 ---
 

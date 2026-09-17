@@ -1,0 +1,26 @@
+# 霍格沃茨打卡 · 反向代理 + 自动 HTTPS
+#
+# 前提：域名已解析到本服务器，且已完成 ICP 备案（国内服务器绑域名对外提供服务的必要条件）。
+# 备案免费，通过云厂商控制台提交，通常 1–2 周。不想备案就先直接用 http://<IP>:3000。
+#
+# 用之前把第一行换成自己的域名，然后：
+#   sudo cp deploy/Caddyfile /etc/caddy/Caddyfile
+#   sudo systemctl reload caddy
+#
+# Caddy 会自动申请并续期 Let's Encrypt 证书，不用手动管 80/443。
+
+checkin.example.com {
+	encode zstd gzip
+
+	# 只暴露应用本身；服务器内部接口不需要额外反代
+	reverse_proxy 127.0.0.1:3000
+
+	# 备份导出接口不缓存，避免拿到旧数据
+	@api path /api/*
+	header @api Cache-Control "no-store"
+
+	log {
+		output file /var/log/caddy/checkin.log
+		format console
+	}
+}

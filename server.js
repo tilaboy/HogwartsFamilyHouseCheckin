@@ -7,7 +7,9 @@ const path = require('path');
 const PORT = process.env.PORT || 3000;
 const ROOT = __dirname;
 const PUBLIC_DIR = path.join(ROOT, 'public');
-const DATA_DIR = path.join(ROOT, 'data');
+/* 数据目录可用 DATA_DIR 覆盖。正式部署时指向代码目录之外的绝对路径，
+   这样以后更新代码（整目录替换 / rsync --delete）永远碰不到孩子们的记录。 */
+const DATA_DIR = process.env.DATA_DIR || path.join(ROOT, 'data');
 const DB_FILE = path.join(DATA_DIR, 'db.json');
 
 /* ---------------- 四个学院（唯一真源：前端从 /api/state 拿） ----------------
