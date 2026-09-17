@@ -11,6 +11,8 @@ const ICONS = {
   check: S('<path d="M4 12.5 L9 17.5 L20 6.5" stroke="#7A6448" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>'),
   trophy: S('<path d="M7 4 H17 V9 C17 11.8 14.8 14 12 14 C9.2 14 7 11.8 7 9 Z" stroke="#7A6448" stroke-width="1.8" stroke-linejoin="round"/><path d="M7 6 H4.5 V7.5 C4.5 9 5.5 10 7 10.2 M17 6 H19.5 V7.5 C19.5 9 18.5 10 17 10.2" stroke="#7A6448" stroke-width="1.8" stroke-linecap="round"/><path d="M10 14 V17 H14 V14 M8.5 20 H15.5" stroke="#7A6448" stroke-width="1.8" stroke-linecap="round"/>'),
   lock: S('<rect x="5" y="10.5" width="14" height="10" rx="2.5" stroke="#7A6448" stroke-width="1.8"/><path d="M8.5 10.5 V7.8 C8.5 5.9 10.1 4.3 12 4.3 C13.9 4.3 15.5 5.9 15.5 7.8 V10.5" stroke="#7A6448" stroke-width="1.8" stroke-linecap="round"/>'),
+  swap: S('<path d="M4.5 8.2 H17.5 M14 4.6 L17.8 8.2 L14 11.8" stroke="#7A6448" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>' +
+    '<path d="M19.5 15.8 H6.5 M10 12.2 L6.2 15.8 L10 19.4" stroke="#7A6448" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>'),
   plus: S('<path d="M12 5 V19 M5 12 H19" stroke="#B49B6C" stroke-width="2" stroke-linecap="round"/>'),
   book: S('<path d="M12 6.5 C10.8 5.4 9 5 6.6 5 C5.7 5 5 5.7 5 6.6 V18 C5 18.6 5.5 19 6.1 19 C8.4 19 10.6 19.4 12 20.4 C13.4 19.4 15.6 19 17.9 19 C18.5 19 19 18.6 19 18 V6.6 C19 5.7 18.3 5 17.4 5 C15 5 13.2 5.4 12 6.5 Z" stroke="#7A6448" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 6.5 V20.4" stroke="#7A6448" stroke-width="1.8" stroke-linecap="round"/>'),
   houseRaven: S('<path d="M12 2 L21 5.2 V12 C21 16.9 16.9 20.7 12 22 C7.1 20.7 3 16.9 3 12 V5.2 Z" fill="#33506F"/><path d="M12 7.4 C10.7 6.5 8.8 6.3 7.7 6.5 V16.6 C8.8 16.4 10.7 16.6 12 17.5 C13.3 16.6 15.2 16.4 16.3 16.6 V6.5 C15.2 6.3 13.3 6.5 12 7.4 Z" fill="#EFE0BC"/><path d="M12 7.4 V17.5" stroke="#33506F" stroke-width="1"/>'),
@@ -212,22 +214,38 @@ const HAT_SVG = '<svg viewBox="0 0 240 210" xmlns="http://www.w3.org/2000/svg">'
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 let hatChosen = '';    // 开场页里刚选的身份（孩子 id）
 let hatHousePick = ''; // 开场页里刚选的学院
+let hatMode = '';      // '' 完整流程 ｜ 'switch' 只换人 ｜ 'resort' 只重新分院
 
 /* 这台设备是谁在用：'' 还没选 ｜ 'amelia' / 'aiden' ｜ 'parent'（家长视角，不锁定） */
 function whoStored() { try { return localStorage.getItem('hw_who') || ''; } catch (e) { return ''; } }
 function whoSave(v) { try { localStorage.setItem('hw_who', v || ''); } catch (e) { /* 忽略 */ } }
 
-/* 第一步：这是谁 → 第二步：想去哪个学院 → 宣布 */
-function showHatIntro() {
+/*
+ * 开场页三种用法：
+ *   showHatIntro()          第一次进来：选人 → 选学院 → 宣布
+ *   showHatIntro('switch')  换人：点一下孩子就直接切换，不走分院
+ *   showHatIntro('resort')  重新分院：直接跳到当前孩子的选学院一步
+ */
+function showHatIntro(mode) {
   const s = app.state;
   if (!s) return;
+  hatMode = mode || '';
   const wrap = $('#hatIntro');
   $('#hatFigure').innerHTML = HAT_SVG;
+  $('#hatResult').hidden = true;
+  wrap.classList.remove('is-sorting', 'is-done');
+
+  if (hatMode === 'resort' && myKidId()) {
+    const kid = s.kids.find(k => k.id === myKidId());
+    if (kid) { wrap.hidden = false; hatPick(kid.id); return; }
+  }
+
   $('#hatPicks').hidden = false;
   $('#hatHouses').hidden = true;
-  $('#hatResult').hidden = true;
   $('#hatSkip').hidden = false;
-  $('#hatSub').textContent = '戴上分院帽——今天是谁来打卡？';
+  $('#hatSub').textContent = hatMode === 'switch'
+    ? '换个人来打卡——今天是谁？'
+    : '戴上分院帽——今天是谁来打卡？';
   $('#hatPicks').innerHTML = s.kids.map(k => {
     const h = houseOf(k);
     return '<button class="hat-pick" data-act="hat-pick" data-kid="' + k.id + '" style="--hc:' + (h.light || h.color) + '">' +
@@ -305,7 +323,12 @@ function hatDone(v) {
 
 $('#hatIntro').addEventListener('click', (e) => {
   const pick = e.target.closest('[data-act="hat-pick"]');
-  if (pick) { hatPick(pick.dataset.kid); return; }
+  if (pick) {
+    // 换人模式：点到名字就直接切换，不用再走分院
+    if (hatMode === 'switch') { hatDone(pick.dataset.kid); return; }
+    hatPick(pick.dataset.kid);
+    return;
+  }
   const hp = e.target.closest('[data-act="hat-house"]');
   if (hp) { hatPickHouse(hp.dataset.house); return; }
   if (e.target.closest('[data-act="hat-enter"]')) { hatDone(hatChosen); return; }
@@ -394,12 +417,14 @@ function render() {
   const total = s.familyWeekPoints || 0;
   $('#weekPointsText').innerHTML = '本周学院分 <b>' + total + '</b>';
 
-  // 顶栏那个分院帽按钮顺便当「我是谁」的标识
-  const whoLabel = $('#hatLabel');
+  // 顶栏身份牌：现在这台设备是谁 + 两个独立按钮（换人 / 分院）
+  const whoLabel = $('#whoLabel');
   if (whoLabel) {
     const me = myKidId();
     const mk = me ? s.kids.find(k => k.id === me) : null;
-    whoLabel.textContent = mk ? (mk.name + ' · ' + houseOf(mk).name) : (isParentView() ? '家长视角' : '分院');
+    whoLabel.textContent = mk ? (mk.name + ' · ' + houseOf(mk).name) : (isParentView() ? '家长视角' : '还没选人');
+    const wc = $('#whoCrest');
+    if (wc) wc.innerHTML = mk ? crestOf(mk.house) : (isParentView() ? ICONS.lock : ICONS.crest);
   }
 
   // 家长端表单是每 4 秒后台同步时整体重绘的，重绘前先把用户正在输入的内容收进 app.form，
@@ -453,37 +478,6 @@ function houseCard(k, me, locked) {
     '</div>';
 }
 
-function readingCard(k, locked) {
-  const r = k.reading;
-  const pct = r.pct;
-  const h = houseOf(k.kid);
-  const chips = (r.tiers || []).map(tr => {
-    const on = r.minutes >= tr[0];
-    return '<span class="tier-chip' + (on ? ' on' : '') + '"' +
-      (on ? ' style="border-color:' + h.color + ';color:' + h.color + ';background:' + h.soft + '"' : '') + '>' +
-      tr[0] + ' 分钟 +' + tr[1] + '</span>';
-  }).join('');
-  const note = locked
-    ? '让 ' + k.kid.name + ' 自己来记录'
-    : (r.next
-      ? '再读 ' + (r.next[0] - r.minutes) + ' 分钟，+ ' + (r.next[1] - r.pts) + ' 分'
-      : '今天拿满 ' + r.pts + ' 分，太棒了');
-  return '<div class="card' + (locked ? ' is-locked' : '') + '">' +
-    '<div class="read-head"><h3><span class="ic" style="color:' + h.color + '">' + ICONS.book + '</span>今日阅读</h3>' +
-    '<span class="sub">当前 + ' + r.pts + ' 分 · 满档 ' + r.goal + ' 分钟</span></div>' +
-    '<div class="read-big"><b style="color:' + h.color + '">' + r.minutes + '</b>' +
-    '<span>/ ' + r.goal + ' 分钟</span><span class="pct">已完成 ' + pct + '%</span></div>' +
-    '<div class="bar"><i style="width:' + pct + '%;background:' + h.color + '"></i></div>' +
-    '<div class="tier-chips">' + chips + '</div>' +
-    '<div class="read-foot"><span class="note">' + note + '</span>' +
-    '<span class="mini-btns">' +
-    (locked ? '' :
-      '<button class="mini-btn" data-act="read" data-kid="' + k.kid.id + '" data-delta="-5">−5</button>' +
-      '<button class="mini-btn" data-act="read" data-kid="' + k.kid.id + '" data-delta="5">+5</button>' +
-      '<button class="mini-btn" data-act="read" data-kid="' + k.kid.id + '" data-delta="10">+10</button>') +
-    '</span></div></div>';
-}
-
 function cbSvg(done, color) {
   return done
     ? S('<circle cx="13" cy="13" r="12" fill="' + color + '"/><path d="M8 13.4 L11.5 16.9 L18 10.3" stroke="#FBF3E1" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>', '0 0 26 26')
@@ -514,7 +508,7 @@ function taskRow(k, t, locked) {
       '<div class="t-sub">' + esc(sub) + '</div>' +
       '<div class="tier-chips">' + chips + '</div></span>' +
       '<span class="pts pstack"><b>+' + t.points + '</b>' + (t.maxPoints && t.points < t.maxPoints ? '<i>最高+' + t.maxPoints + '</i>' : '') + '</span>' +
-      (t.kind === 'practice' && !locked ? '<span class="mini-btns">' + btn(-5) + btn(5) + btn(10) + '</span>' : '') +
+      (!locked ? '<span class="mini-btns">' + btn(-5) + btn(5) + btn(10) + '</span>' : '') +
       '</div>';
   }
   // 锁定列：照样显示真实完成状态（家人能看到进度），只是点不动
@@ -540,7 +534,6 @@ function renderToday(s) {
       (locked ? ' data-act="locked-tip" data-kid="' + kid.id + '"' : '') + '>' +
       houseCard(k, me === kid.id, locked) +
       '<div style="height:16px"></div>' +
-      readingCard(k, locked) +
       '<div class="card' + (locked ? ' is-locked' : '') + '"><div class="card-title"><h3>今日任务</h3>' +
       '<span class="sub">' + k.doneCount + ' / ' + k.totalCount + ' 已完成 · 还剩 +' + k.remainPoints + ' 分</span></div>' +
       (locked ? '<p class="lock-hint">' + ICONS.lock + '这一列只有 ' + esc(kid.name) + ' 能打卡</p>' : '') +
@@ -776,21 +769,8 @@ document.addEventListener('click', async (e) => {
       return;
     }
 
-    if (act === 'read') {
-      const kidId = el.dataset.kid;
-      if (lockedFor(kidId)) { toast('这是 ' + kidName(kidId) + ' 的打卡，让他自己来 ✓'); return; }
-      const delta = Number(el.dataset.delta);
-      const rt = s.perKid[kidId].tasks.find(t => t.kind === 'reading');
-      const ptsBefore = s.perKid[kidId].reading.pts || 0;
-      await api('POST', '/api/reading', { kidId, taskId: rt ? rt.id : undefined, date: s.today, minutes: delta, mode: 'add' });
-      await load(true);
-      // 跳到更高档位才放存钱罐（+5 分钟但档位没变就不用演）
-      const after = app.state && app.state.perKid[kidId] ? app.state.perKid[kidId].reading.pts : 0;
-      if (after > ptsBefore) piggyPop(kidId, after - ptsBefore, e.clientX, e.clientY);
-      return;
-    }
-
     if (act === 'practice') {
+      // 阅读 / 练习类统一走这里：改分钟数，服务端按档位同步分数
       const kidId = el.dataset.kid;
       const taskId = el.dataset.task;
       if (lockedFor(kidId)) { toast('这是 ' + kidName(kidId) + ' 的打卡，让他自己来 ✓'); return; }
@@ -967,7 +947,24 @@ $('#pinInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') submi
 /* ---------- 启动 ---------- */
 $('#crest').innerHTML = ICONS.crest;
 $('#hatIc').innerHTML = HAT_SVG;
-$('#hatBtn').addEventListener('click', showHatIntro);
+$('#switchIc').innerHTML = ICONS.swap;
+$('#switchBtn').addEventListener('click', () => showHatIntro('switch'));
+$('#resortBtn').addEventListener('click', () => showHatIntro('resort'));
+
+/* 顶栏高度会随内容换行变化（比如身份牌文字变长、分数位数变多），
+   而标签栏的 sticky 偏移按顶栏高度定位，所以实时把它喂给 CSS 变量。 */
+(function trackTopbarHeight() {
+  const bar = document.querySelector('.topbar');
+  if (!bar) return;
+  const apply = () => {
+    const h = Math.round(bar.getBoundingClientRect().height);
+    if (h) document.documentElement.style.setProperty('--topbar-h', h + 'px');
+  };
+  apply();
+  if (window.ResizeObserver) new ResizeObserver(apply).observe(bar);
+  window.addEventListener('resize', apply);
+  window.addEventListener('orientationchange', () => setTimeout(apply, 250));
+})();
 document.querySelectorAll('[data-icon]').forEach(el => {
   const n = el.dataset.icon;
   if (ICONS[n]) el.innerHTML = ICONS[n];

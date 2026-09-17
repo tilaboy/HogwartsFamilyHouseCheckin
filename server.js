@@ -67,10 +67,10 @@ function seed() {
 
       /* —— 每天都要做（两个人）—— 放学后到睡觉前的固定流程 */
       { id: 't_table', name: '帮忙收拾桌子', icon: 'table', kind: 'normal', time: '18:30', points: 5, minutes: 5, days: [1, 2, 3, 4, 5, 6, 7], assignees: ['amelia', 'aiden'], active: true },
-      { id: 't_english', name: '英语练习 20 分钟', icon: 'globe', kind: 'normal', time: '19:00', points: 10, minutes: 20, days: [1, 2, 3, 4, 5, 6, 7], assignees: ['amelia', 'aiden'], active: true },
+      { id: 't_english', name: '英语练习', icon: 'globe', kind: 'practice', time: '19:00', points: 10, minutes: 20, tiers: [[10, 5], [20, 10], [30, 20]], days: [1, 2, 3, 4, 5, 6, 7], assignees: ['amelia', 'aiden'], active: true },
       { id: 't_amc', name: 'AMC 数学 20 分钟', icon: 'math', kind: 'normal', time: '19:30', points: 10, minutes: 20, days: [1, 2, 3, 4, 5, 6, 7], assignees: ['amelia', 'aiden'], active: true },
       { id: 't_read', name: '中文阅读', icon: 'book', kind: 'reading', time: '20:00', points: 20, minutes: 20, tiers: [[10, 5], [20, 10], [30, 20]], days: [1, 2, 3, 4, 5, 6, 7], assignees: ['amelia', 'aiden'], active: true },
-      { id: 't_scholastic', name: 'Scholastic 15 分钟', icon: 'scholastic', kind: 'normal', time: '20:30', points: 10, minutes: 15, days: [1, 2, 3, 4, 5, 6, 7], assignees: ['amelia', 'aiden'], active: true },
+      { id: 't_scholastic', name: 'Scholastic 阅读', icon: 'scholastic', kind: 'practice', time: '20:30', points: 10, minutes: 15, tiers: [[15, 10], [30, 20]], days: [1, 2, 3, 4, 5, 6, 7], assignees: ['amelia', 'aiden'], active: true },
       { id: 't_bed', name: '22:00 前上床', icon: 'moon', kind: 'normal', time: '22:00', points: 5, minutes: 0, days: [1, 2, 3, 4, 5, 6, 7], assignees: ['amelia', 'aiden'], active: true },
 
       /* —— Amelia（G5-2）的课外课：周一/三攀岩，周二/四/日单簧管，周五网球，周六画画 —— */
@@ -162,6 +162,22 @@ function migrate() {
       }
     }
     db.migratedTiers = true;
+  }
+  /* ---- 一次性迁移：英语 / Scholastic 也改按时长计分 ----
+     英语用标准三档（20 分钟 = 10 分，价值不变）；Scholastic 用 15′=10 / 30′=20，
+     保留原来 15 分钟拿 10 分的价值。历史打卡按旧建议时长补分钟，已完成状态和已得分都不变。 */
+  if (!db.migratedTimedAll) {
+    const eng = db.tasks.find(t => t.id === 't_english');
+    if (eng) { eng.kind = 'practice'; eng.tiers = [[10, 5], [20, 10], [30, 20]]; eng.name = '英语练习'; }
+    const sch = db.tasks.find(t => t.id === 't_scholastic');
+    if (sch) { sch.kind = 'practice'; sch.tiers = [[15, 10], [30, 20]]; sch.name = 'Scholastic 阅读'; }
+    for (const c of db.checkins) {
+      if (['t_english', 't_scholastic'].includes(c.taskId) &&
+          !db.reading.some(x => x.kidId === c.kidId && x.date === c.date && x.taskId === c.taskId)) {
+        db.reading.push({ kidId: c.kidId, taskId: c.taskId, date: c.date, minutes: c.taskId === 't_english' ? 20 : 15 });
+      }
+    }
+    db.migratedTimedAll = true;
   }
   /* ---- 学院色以 HOUSES 为准，旧数据里写死的颜色一并纠正 ---- */
   for (const kid of db.kids) {

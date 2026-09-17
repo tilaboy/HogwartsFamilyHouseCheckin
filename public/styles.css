@@ -48,12 +48,12 @@ input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
 .brand{display:flex;align-items:center;gap:12px;min-width:0}
 .crest{width:42px;height:42px;flex:none}
 .crest svg{width:100%;height:100%;display:block}
-.brand-txt h1{font-size:21px;line-height:1.25}
-.brand-txt p{margin:2px 0 0;font-size:12px;color:var(--muted)}
-.topbar-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.brand-txt h1{font-size:21px;line-height:1.25;white-space:nowrap}
+.brand-txt p{margin:2px 0 0;font-size:12px;color:var(--muted);white-space:nowrap}
+.topbar-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 
 .pill{
-  display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;
+  display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 14px;
   border-radius:20px;background:var(--card);border:1px solid var(--line);
   font-size:14px;white-space:nowrap;
 }
@@ -70,7 +70,7 @@ input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
 .tabs{
   display:flex;gap:8px;padding:12px 24px;overflow-x:auto;
   border-bottom:1px solid var(--line);background:rgba(242,227,198,.6);
-  position:sticky;top:75px;z-index:15;
+  position:sticky;top:var(--topbar-h,75px);z-index:15;
 }
 .tab{
   display:inline-flex;align-items:center;gap:8px;flex:none;
@@ -416,8 +416,31 @@ input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
 [hidden]{display:none !important}
 
 /* ===== 分院帽开场页 ===== */
-.hat-pill{cursor:pointer}
-.hat-pill .ic{color:var(--gold-deep)}
+/* 「换人」「分院」是两颗独立按钮，点哪颗进哪种流程 */
+.hat-pill{cursor:pointer;transition:.15s}
+.hat-pill:hover{background:#FBF3E1;border-color:var(--gold-deep)}
+.hat-pill:active{transform:translateY(1px)}
+.hat-pill .ic{color:var(--gold-deep);display:inline-flex;width:17px;height:17px}
+.hat-pill .ic svg{width:17px;height:17px}
+/* 身份牌：显示当前是谁 · 哪个学院（不可点，旁边是独立的换人/分院按钮） */
+.who-pill{border:1px solid var(--gold-deep);background:#FBF3E1;max-width:190px}
+.who-pill .ic{display:inline-flex;width:18px;height:18px;flex:none}
+.who-pill .ic svg{width:18px;height:18px}
+.who-pill span:last-child{font-weight:600;color:#4A3220;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* 平板横屏（10" iPad 1024pt 等）：顶栏挤在 900–1200px 之间就会掉行，
+   而 .tabs 的 sticky 偏移按顶栏高度算，掉行会错位。这里收一收把顶栏压回单行。 */
+@media (max-width:1200px){
+  .brand-txt h1{font-size:19px}
+  .pill{padding:0 12px;gap:7px}
+  .topbar-right{gap:7px}
+}
+/* 更窄（竖屏平板 / 手机）顶栏本来就会折行，同步状态只留小圆点省空间 */
+@media (max-width:1000px){
+  .sync-pill #syncText{display:none}
+  .sync-pill{padding:0 13px}
+}
+@media (max-width:900px){.who-pill{max-width:130px}}
 
 .hat-intro{
   position:fixed;inset:0;z-index:90;
@@ -553,3 +576,8 @@ input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
 .task.practice .mini-btns{display:flex;gap:5px;flex:none}
 .task.practice{cursor:default}
 .task.practice:not(.is-locked):hover{background:#F7F0DF}
+/* 计时任务行：档位徽章跟名称同排，−5/+5/+10 换到第二排右对齐。
+   否则四个元素挤一排，档位会被压成竖着一列，行高翻倍。 */
+.task.practice{flex-wrap:wrap;row-gap:10px}
+.task.practice:not(.is-locked) .mini-btns{flex:0 0 100%;justify-content:flex-end}
+.tier-chip.sm{min-width:0}
