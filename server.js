@@ -53,12 +53,18 @@ function seed() {
     pin: '1234',
     kids: [
       {
-        id: 'amelia', name: 'Amelia', role: '姐姐', age: 10, grade: 'G5-2',
-        house: 'ravenclaw', color: '#33506F', tags: ['单簧管', '攀岩', '画画'], readingGoal: 20
+        id: 'amelia', name: 'Amelia', role: '姐姐', age: 10, grade: 'G5-2', type: 'child',
+        house: 'hufflepuff', color: '#B77A12', tags: ['单簧管', '攀岩', '画画'], readingGoal: 20
       },
       {
-        id: 'aiden', name: 'Aiden', role: '弟弟', age: 7, grade: 'G2-1',
+        id: 'aiden', name: 'Aiden', role: '弟弟', age: 7, grade: 'G2-1', type: 'child',
         house: 'gryffindor', color: '#9A3324', tags: ['架子鼓', '足球', '攀岩'], readingGoal: 20
+      },
+      /* —— 爸爸：参赛的家长，进目前没人的拉文克劳，学院杯自然变成三人赛 ——
+         type:'parent' 用来把他的日常任务从「本周课外课全勤」挑战和「一周不漏阅读」里排除 */
+      {
+        id: 'dad', name: '爸爸', role: '爸爸', house: 'ravenclaw', color: '#33506F', type: 'parent',
+        tags: [], readingGoal: 0
       }
     ],
     tasks: [
@@ -83,7 +89,26 @@ function seed() {
 
       /* —— Aiden（G2-1）的课外课：周一/三/五足球，周二/四/日架子鼓 —— */
       { id: 't_soccer', name: '足球训练 45 分钟', icon: 'soccer', kind: 'normal', time: '17:30', points: 10, minutes: 45, days: [1, 3, 5], assignees: ['aiden'], active: true },
-      { id: 't_drum', name: '架子鼓练习 15 分钟', icon: 'drum', kind: 'normal', time: '17:30', points: 10, minutes: 15, days: [2, 4, 7], assignees: ['aiden'], active: true }
+      { id: 't_drum', name: '架子鼓练习 15 分钟', icon: 'drum', kind: 'normal', time: '17:30', points: 10, minutes: 15, days: [2, 4, 7], assignees: ['aiden'], active: true },
+
+      /* —— 爸爸的每日日程（只派给 dad，type:parent 使这些不计入「课外课全勤」）—— */
+      /* 固定分值（做完得固定分，和孩子们攀岩 60 分钟一个逻辑） */
+      { id: 't_dad_wake', name: '6:30 按时起床', icon: 'sunrise', kind: 'normal', time: '06:30', points: 5, minutes: 0, days: [1, 2, 3, 4, 5, 6, 7], assignees: ['dad'], active: true },
+      { id: 't_dad_breakfast', name: '6:40 做早餐', icon: 'utensils', kind: 'normal', time: '06:40', points: 5, minutes: 0, days: [1, 2, 3, 4, 5, 6,7], assignees: ['dad'], active: true },
+      { id: 't_dad_table_am', name: '7:20 收拾桌子', icon: 'table', kind: 'normal', time: '07:20', points: 5, minutes: 5, days: [1, 2, 3, 4, 5, 6, 7], assignees: ['dad'], active: true },
+      { id: 't_dad_drop', name: '7:30 送 Amelia、Aiden 上学', icon: 'bus', kind: 'normal', time: '07:30', points: 10, minutes: 0, days: [1, 2, 3, 4, 5], assignees: ['dad'], active: true },
+      { id: 't_dad_diet', name: '12:30 健康饮食', icon: 'apple', kind: 'normal', time: '12:30', points: 5, minutes: 0, days: [1, 2,3, 4, 5, 6, 7], assignees: ['dad'], active: true },
+      { id: 't_dad_fruit', name: '14:00 下午吃水果', icon: 'apple', kind: 'normal', time: '14:00', points: 5, minutes: 0, days: [1, 2, 3, 4, 5, 6, 7], assignees: ['dad'], active: true },
+      { id: 't_dad_pickup', name: '17:00 接 Amelia、Aiden 上学', icon: 'bus', kind: 'normal', time: '17:00', points: 10, minutes: 0, days: [1, 2, 3, 4, 5], assignees: ['dad'], active: true },
+      { id: 't_dad_table_pm', name: '19:00 收拾桌子', icon: 'table', kind: 'normal', time: '19:00', points: 5, minutes: 5, days: [1, 2, 3, 4, 5, 6, 7], assignees: ['dad'], active: true },
+      { id: 't_dad_homework', name: '20:00 指导乐乐多多写作业', icon: 'pencil', kind: 'normal', time: '20:00', points: 10, minutes: 0, days: [1, 2, 3, 4, 5, 6, 7], assignees: ['dad'], active: true },
+      { id: 't_dad_trash', name: '21:00 倒垃圾和散步', icon: 'walk', kind: 'normal', time: '21:00', points: 5, minutes: 0, days: [1, 2, 3, 4, 5, 6, 7], assignees: ['dad'], active: true },
+      /* 按时长计分（按真实时长给分）：运动 / 游泳 / 午睡 / 下午阅读 / 工作 */
+      { id: 't_dad_exercise', name: '10:30 运动', icon: 'exercise', kind: 'practice', time: '10:30', points: 20, minutes: 60, tiers: [[30, 10], [60, 20]], days: [1, 2, 3, 4, 5, 6, 7], assignees: ['dad'], active: true },
+      { id: 't_dad_swim', name: '11:30 游泳', icon: 'swim', kind: 'practice', time: '11:30', points: 10, minutes: 20, tiers: [[10, 5], [20, 10], [30, 20]], days: [1, 2, 3, 4, 5, 6, 7], assignees: ['dad'], active: true },
+      { id: 't_dad_nap', name: '13:30 午睡', icon: 'moon', kind: 'practice', time: '13:30', points: 20, minutes: 30, tiers: [[10, 5], [20, 10], [30, 20]], days: [1, 2, 3, 4, 5, 6, 7], assignees: ['dad'], active: true },
+      { id: 't_dad_read_pm', name: '14:30 下午中文阅读', icon: 'book', kind: 'practice', time: '14:30', points: 20, minutes: 20, tiers: [[10, 5], [20, 10], [30, 20]], days: [1, 2, 3, 4, 5, 6, 7], assignees: ['dad'], active: true },
+      { id: 't_dad_work', name: '15:00 工作', icon: 'briefcase', kind: 'practice', time: '15:00', points: 30, minutes: 120, tiers: [[60, 15], [120, 30]], days: [1, 2, 3, 4, 5, 6, 7], assignees: ['dad'], active: true }
     ],
     activities: [
       { id: 'a1', name: '攀岩馆长课', day: 6, time: '10:00', assignees: ['amelia', 'aiden'], atSchool: false },
@@ -180,6 +205,19 @@ function migrate() {
       }
     }
     db.migratedTimedAll = true;
+  }
+  /* ---- 一次性迁移：加入「爸爸」参赛 ----
+     把爸爸本人 + 他的 15 项日程补进现有数据（不影响孩子已有的打卡/记录）。
+     已存在爸爸则跳过，这样家长以后手动删掉也不会被反复加回来。 */
+  if (!db.migratedDad) {
+    if (!db.kids.some(k => k.id === 'dad')) {
+      const dk = s.kids.find(k => k.id === 'dad');
+      if (dk) db.kids.push(JSON.parse(JSON.stringify(dk)));
+    }
+    for (const t of s.tasks.filter(t => t.id && t.id.startsWith('t_dad_'))) {
+      if (!db.tasks.some(x => x.id === t.id)) db.tasks.push(JSON.parse(JSON.stringify(t)));
+    }
+    db.migratedDad = true;
   }
   /* ---- 学院色以 HOUSES 为准，旧数据里写死的颜色一并纠正 ---- */
   for (const kid of db.kids) {
@@ -290,7 +328,8 @@ function readStreakOf(kidId, today) {
   let n = 0;
   let d = today;
   const kid = kidById(kidId);
-  if (!kid) return 0;
+  // 没有阅读目标（比如爸爸）不参与阅读连续打卡，避免 0>=0 永远成立导致无穷大
+  if (!kid || !kid.readingGoal) return 0;
   if (readingMinutes(kidId, d) < kid.readingGoal) d = addDays(d, -1);
   while (readingMinutes(kidId, d) >= kid.readingGoal) { n++; d = addDays(d, -1); if (n > 999) break; }
   return n;
@@ -453,13 +492,16 @@ function buildState(today) {
   // 家庭挑战
   // 课外课 = 只派给一个孩子的任务（每天两人共同的那几项是固定流程，不算）。
   // 这样家长增删课外课，目标节数会自动跟着变，不用改代码。
-  const extraTasks = db.tasks.filter(t => t.active && Array.isArray(t.assignees) && t.assignees.length === 1);
+  // 爸爸的日常任务（type:parent）不计入：用「所有指派人都是孩子」来排除。
+  const childIds = db.kids.filter(k => k.type !== 'parent').map(k => k.id);
+  const extraTasks = db.tasks.filter(t => t.active && Array.isArray(t.assignees) && t.assignees.length === 1 && t.assignees.every(id => childIds.includes(id)));
   const EXTRA_IDS = extraTasks.map(t => t.id);
   const extraTarget = extraTasks.reduce((n, t) => n + (Array.isArray(t.days) ? t.days.length : 0), 0);
   let readBothDays = 0, extraCount = 0;
   for (let i = 0; i < 7; i++) {
     const d = addDays(wkStart, i);
-    const allRead = db.kids.every(k => readingMinutes(k.id, d) >= k.readingGoal);
+    // 「一周不漏阅读」只数孩子（爸爸没有阅读目标，不参与）
+    const allRead = db.kids.filter(k => k.type !== 'parent').every(k => readingMinutes(k.id, d) >= k.readingGoal);
     if (allRead) readBothDays++;
     extraCount += db.checkins.filter(c => EXTRA_IDS.includes(c.taskId) && c.date === d).length;
   }
@@ -591,11 +633,15 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (req.method === 'GET' && urlPath === '/api/export') {
+      // 备份里不放家长密码：导出本身不验证 PIN，若把 pin 一起序列化出去，
+      // 任何人拿到这个公开链接就能下载到写操作的密码 + 全家数据。
+      const safe = Object.assign({}, db);
+      delete safe.pin;
       res.writeHead(200, {
         'Content-Type': 'application/json; charset=utf-8',
         'Content-Disposition': 'attachment; filename="hogwarts-backup-' + todayLocal() + '.json"'
       });
-      return res.end(JSON.stringify(db, null, 2));
+      return res.end(JSON.stringify(safe, null, 2));
     }
 
     /* ---- 密码校验（POST 版本，走请求体，最不容易被代理拦） ---- */

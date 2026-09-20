@@ -1,11 +1,11 @@
 # 霍格沃茨家庭分院 · 每日打卡
 
-> A Hogwarts-themed daily habit check-in web app for two kids and their parents.
-> Parent-tap self-reporting, house points, a weekly House Cup, badges, and a
-> tablet-first parchment UI. Zero dependencies — a single Node.js file plus a
-> vanilla JS front end.
+> A Hogwarts-themed daily habit check-in web app for a family of three — two kids
+> and Dad — who compete in a house-points race. Parent-tap self-reporting, house
+> points, a weekly House Cup, badges, and a tablet-first parchment UI. Zero
+> dependencies — a single Node.js file plus a vanilla JS front end.
 
-为 Amelia（10 岁，G5-2，拉文克劳）和 Aiden（7 岁，G2-1，格兰芬多）做的家庭打卡网站。
+为 Amelia（10 岁，G5-2）、Aiden（7 岁，G2-1）和爸爸做的家庭打卡网站：孩子各自选学院（分数随人走），爸爸进拉文克劳，学院杯变成三人赛。
 两台平板访问同一个地址，数据实时同步。**零依赖，一个文件的后端，一个端口。**
 
 ---
@@ -28,7 +28,7 @@ iPad 上「分享 → 添加到主屏幕」就变成一个全屏 App 图标。
 
 | 屏 | 内容 |
 |---|---|
-| **今日打卡** | 两个孩子各一列：本周分数、连续打卡、晨间/放学后分组任务；阅读与练习任务行内直接带档位徽章和 `−5 / +5 / +10` 计分钟按钮 |
+| **今日打卡** | 每位家庭成员一列（两个孩子 + 爸爸）：本周分数、连续打卡、晨间/放学后分组任务；阅读与练习任务行内直接带档位徽章和 `−5 / +5 / +10` 计分钟按钮 |
 | **课后课表** | 每天分「早晨 / 放学后」两段，课外课按孩子所在学院配色，家庭活动共用同一份数据源 |
 | **学院分与徽章** | 学院杯（各院独立配色进度条 + 得分）、最近 7 天柱状图、加分流水（可撤回）、徽章墙、家庭挑战 |
 | **家长端** | 打卡项与活动增删改、分值调整、导出/导入备份（**需要家长密码，默认 1234**） |
@@ -71,8 +71,9 @@ Scholastic 阅读用两档（保留原有 15 分钟 = 10 分的价值）：`15�
 底部胶囊显示「名字 · 本周已存 X 分」。全部 CSS keyframes，不引第三方动画库。
 
 ### 自动计算的挑战
-「本周课外课全勤」这类挑战的目标值由排课自动推导
-（只派给一个孩子的进行中任务 × 各自开课天数），家长增删课外课无需改代码。
+「本周课外课全勤」「一周不漏阅读」这类挑战基于排课自动推导，家长增删课外课无需改代码。
+「课外课全勤」= 只派给一个孩子的进行中任务 × 各自开课天数；「不漏阅读」只数孩子（有阅读目标的人）。
+**爸爸的日常任务标 `type:'parent'`，不计入这两个家庭挑战**，所以增加爸爸不会抬高目标或进度。
 
 ### 数据安全约定
 - 每次改动 **原子写入**（先写临时文件再 rename），断电不会写坏。
@@ -125,7 +126,8 @@ curl -X POST http://localhost:3000/api/pin \
 | POST/PUT | `/api/activities` | 家长 | 课表上的家庭活动 |
 | DELETE | `/api/activities/:id` | 家长 | 删除活动 |
 | POST | `/api/badge` | 家长 | 手动解锁徽章 |
-| GET/POST | `/api/export` `/api/import` | 家长 | 备份 / 恢复 |
+| GET | `/api/export` | 公开 | 下载备份（响应不含家长密码） |
+| POST | `/api/import` | 家长 | 恢复备份 |
 | POST | `/api/pin` | 家长 | 改家长密码 |
 
 家长权限通过 `x-pin` 请求头、URL 参数或请求体任一路径校验。
@@ -162,5 +164,5 @@ Render 免费版、Vercel、Netlify 这类文件系统「用完即弃」的平�
 - **后端**：Node.js，仅用内置 `node:http` / `node:fs`，无任何 npm 依赖
 - **前端**：原生 JS 单页应用 + 原生 CSS，无框架、无构建步骤
 - **持久化**：单个 JSON 文件，原子写入
-- **规模**：`server.js` 约 790 行，`public/app.js` 约 980 行，`public/styles.css` 约 555 行
+- **规模**：`server.js` 约 850 行，`public/app.js` 约 990 行，`public/styles.css` 约 555 行
 - **适配**：平板 / 触屏优先，支持添加到主屏幕全屏运行，两台设备 4 秒轮询自动同步

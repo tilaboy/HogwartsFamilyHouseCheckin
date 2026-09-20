@@ -49,7 +49,15 @@ const TILE = {
   // —— 早起三件事：起床 / 朗诵 / 运动 ——
   sunrise: ['#F6E7C4', '#B77A12', '<path d="M3.5 18.8 H20.5"/><path d="M6.6 18.8 C6.6 15.7 9 13.3 12 13.3 C15 13.3 17.4 15.7 17.4 18.8"/><path d="M12 4.4 V7.8"/><path d="M5.4 7.2 L7.8 9.6"/><path d="M18.6 7.2 L16.2 9.6"/>'],
   recite: ['#E6DCEF', '#5B4A78', '<rect x="9.6" y="3.4" width="4.8" height="9.2" rx="2.4"/><path d="M6.4 11.6 C6.4 14.7 8.9 17.2 12 17.2 C15.1 17.2 17.6 14.7 17.6 11.6"/><path d="M12 17.2 V20.6"/><path d="M9.2 20.6 H14.8"/>'],
-  exercise: ['#D9E6DC', '#2F5D50', '<path d="M3.8 9.4 V14.6 M6.8 7.2 V16.8 M17.2 7.2 V16.8 M20.2 9.4 V14.6 M6.8 12 H17.2"/>']
+  exercise: ['#D9E6DC', '#2F5D50', '<path d="M3.8 9.4 V14.6 M6.8 7.2 V16.8 M17.2 7.2 V16.8 M20.2 9.4 V14.6 M6.8 12 H17.2"/>'],
+  // —— 爸爸的日程图标 ——
+  utensils: ['#D9E6DC', '#2F5D50', '<path d="M7 4 V13 C7 15.2 8.6 17 10.5 17 C12.4 17 14 15.2 14 13 V4"/><path d="M7 4 H9.5 M10.5 4 V9"/><path d="M18 4 V17"/>'],
+  bus: ['#F2E5C2', '#8A6A1F', '<rect x="5" y="5" width="14" height="13" rx="2"/><path d="M5 10 H19"/><circle cx="8.5" cy="20" r="1.6"/><circle cx="15.5" cy="20" r="1.6"/>'],
+  swim: ['#DCE6F0', '#33506F', '<circle cx="9" cy="8" r="2.2"/><path d="M7 12 C8 10 10 10 11 12 C12 14 14 14 15 12"/><path d="M3.5 17 C5.5 15.5 7 15.5 9 17 C11 18.5 12.5 18.5 14.5 17 C16.5 15.5 18 15.5 20.5 17"/>'],
+  apple: ['#F5DED8', '#9A3324', '<path d="M12 7 C10 4.5 6.5 5 6.5 9 C6.5 13 9 19 12 19 C15 19 17.5 13 17.5 9 C17.5 5 14 4.5 12 7 Z"/><path d="M12 7 V4.5 M12 6 C13 4 15 4 15.5 5"/>'],
+  briefcase: ['#E6DCEF', '#5B4A78', '<rect x="4" y="8" width="16" height="11" rx="2"/><path d="M9 8 V6.5 C9 5.4 9.8 4.8 10.8 4.8 H13.2 C14.2 4.8 15 5.4 15 6.5 V8"/><path d="M4 12 H20"/>'],
+  pencil: ['#F2E5C2', '#8A6A1F', '<path d="M4 20 L5 16 L16 5 L19 8 L8 19 Z"/><path d="M14 7 L17 10"/>'],
+  walk: ['#D9E6DC', '#2F5D50', '<circle cx="12" cy="6" r="2.2"/><path d="M12 8.5 V14 M12 14 L8 19 M12 14 L17 17 M9.5 10 L6.5 13 M14.5 10 L18 12.5"/>']
 };
 
 function tile(name) {
@@ -250,7 +258,7 @@ function showHatIntro(mode) {
     const h = houseOf(k);
     return '<button class="hat-pick" data-act="hat-pick" data-kid="' + k.id + '" style="--hc:' + (h.light || h.color) + '">' +
       '<span class="hc">' + crestOf(k.house) + '</span><b>' + esc(k.name) + '</b>' +
-      '<span class="hg">' + esc(h.name) + ' · ' + esc(k.grade) + '</span></button>';
+      '<span class="hg">' + esc(h.name) + (k.grade ? ' · ' + esc(k.grade) : (k.role ? ' · ' + esc(k.role) : '')) + '</span></button>';
   }).join('');
   wrap.hidden = false;
 }
@@ -465,10 +473,13 @@ function houseCard(k, me, locked) {
     '<div class="house-crest">' + crestOf(kid.house) + '</div>' +
     '<div class="house-main">' +
     '<div class="house-name"><h2>' + esc(kid.name) + '</h2>' +
-    '<span class="tag">' + esc(kid.age) + ' 岁 · ' + esc(kid.role) + '</span>' +
+    (kid.grade
+      ? '<span class="tag">' + esc(kid.age) + ' 岁 · ' + esc(kid.role) + '</span>'
+      : '<span class="tag">' + esc(kid.role || '家人') + '</span>') +
     (me ? '<span class="me-tag">我</span>' : '') + '</div>' +
     '<div class="house-line"><i class="hdot" style="background:' + h.color + '"></i>' +
-    esc(h.name) + ' · ' + esc(kid.grade) + ' · ' + esc(kid.tags.join(' / ')) + '</div>' +
+    esc(h.name) + (kid.grade ? ' · ' + esc(kid.grade) : '') +
+    (kid.tags && kid.tags.length ? ' · ' + esc(kid.tags.join(' / ')) : '') + '</div>' +
     '</div>' +
     '<div class="stats">' +
     '<div class="stat"><b>' + (k.weekPoints || 0) + '</b><span>本周学院分</span></div>' +
