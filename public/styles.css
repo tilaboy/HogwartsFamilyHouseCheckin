@@ -86,6 +86,8 @@ input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
 .view{padding:24px;max-width:1360px;margin:0 auto}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 @media (max-width:900px){.grid2{grid-template-columns:1fr}}
+/* 今日打卡单人模式：只显示当前打卡人，一列居中、宽度收拢好点按 */
+.grid2.solo{grid-template-columns:minmax(0,620px);justify-content:center}
 
 .card{
   background:var(--card);border:1px solid var(--line);
@@ -428,12 +430,55 @@ input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
 .who-pill .ic svg{width:18px;height:18px}
 .who-pill span:last-child{font-weight:600;color:#4A3220;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
+/* ---------- 顶栏三人名牌：悬停看进度，点一下换人 ---------- */
+.who-chips{display:flex;gap:6px;align-items:center}
+.who-chip{
+  position:relative;display:inline-flex;align-items:center;gap:6px;
+  padding:0 11px;height:32px;border-radius:999px;cursor:pointer;
+  border:1.5px solid #D8C8A4;background:rgba(255,251,240,.7);
+  font-family:var(--serif);font-size:14px;font-weight:600;color:#6B5433;
+  transition:all .18s ease;
+}
+.who-chip .ic{display:inline-flex;width:17px;height:17px;flex:none;opacity:.85}
+.who-chip .ic svg{width:17px;height:17px}
+.who-chip:hover{border-color:var(--hc);background:var(--hsoft);transform:translateY(-1px)}
+.who-chip.is-me{
+  border-color:var(--hc);background:var(--hsoft);color:var(--hc);
+  box-shadow:0 0 0 2.5px rgba(255,251,240,.9),0 2px 8px rgba(59,38,17,.22);
+}
+.who-chip.is-me::after{
+  content:'';position:absolute;left:50%;bottom:-7px;width:8px;height:8px;margin-left:-4px;
+  transform:rotate(45deg);background:var(--hc);border-radius:1.5px;
+}
+/* 悬停进度卡：本周分 / 连续天数 / 班级 / 特长 */
+.chip-tip{
+  position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(-4px);
+  min-width:172px;padding:9px 13px;border-radius:10px;text-align:left;
+  background:#2C2015;border:1px solid rgba(243,227,182,.4);
+  box-shadow:0 10px 24px rgba(30,20,10,.4);
+  display:flex;flex-direction:column;gap:3px;white-space:nowrap;
+  opacity:0;visibility:hidden;pointer-events:none;transition:all .18s ease;z-index:80;
+}
+.chip-tip::before{
+  content:'';position:absolute;top:-5px;left:50%;width:9px;height:9px;margin-left:-4.5px;
+  transform:rotate(45deg);background:#2C2015;border-left:1px solid rgba(243,227,182,.4);
+  border-top:1px solid rgba(243,227,182,.4);
+}
+.who-chip:hover .chip-tip,.who-chip:focus-visible .chip-tip{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.chip-tip .ct-name{font-size:13px;font-weight:700;color:#F3E3B6}
+.chip-tip .ct-row{font-size:12px;color:#E8D9B8}
+.chip-tip .ct-row b{color:#F3E3B6;font-size:13px}
+.chip-tip .ct-sub{color:#C9B790}
+.chip-tip .ct-go{margin-top:2px;font-size:11px;color:#9C8A63;border-top:1px dashed rgba(243,227,182,.25);padding-top:4px}
+/* 平板没有悬停：第一下点名牌也会直接换人，进度去「学院分与徽章」看，不丢功能 */
+
 /* 平板横屏（10" iPad 1024pt 等）：顶栏挤在 900–1200px 之间就会掉行，
    而 .tabs 的 sticky 偏移按顶栏高度算，掉行会错位。这里收一收把顶栏压回单行。 */
 @media (max-width:1200px){
   .brand-txt h1{font-size:19px}
   .pill{padding:0 12px;gap:7px}
   .topbar-right{gap:7px}
+  .who-chip{padding:0 8px;font-size:13px;height:30px}
 }
 /* 更窄（竖屏平板 / 手机）顶栏本来就会折行，同步状态只留小圆点省空间 */
 @media (max-width:1000px){
@@ -559,6 +604,123 @@ input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
   48%{opacity:1;transform:translateY(0)}
   84%{opacity:1}
   100%{opacity:0;transform:translateY(-14px)}
+}
+
+/* ---------- 分任务庆祝动效 ---------- */
+/* 公共舞台：羊皮纸圆盘里放任务图标，每种类型不同的运动方式 + 小装饰 */
+.fx-visual{
+  width:86px;height:86px;border-radius:50%;position:relative;
+  background:#FBF3E1;border:2.5px solid #8A6A1F;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 7px 16px rgba(30,20,10,.35);
+}
+.fx-visual svg{width:46px;height:46px}
+.fx-deco{
+  position:absolute;font-family:var(--serif);font-weight:800;color:#F3E3B6;
+  text-shadow:0 0 10px rgba(243,227,182,.8);pointer-events:none;
+  animation:fxDeco 1.7s ease-out forwards;
+}
+@keyframes fxDeco{
+  0%,12%{opacity:0;transform:translateY(6px) scale(.6)}
+  30%{opacity:1}
+  75%{opacity:.9;transform:translateY(-26px) scale(1.05)}
+  100%{opacity:0;transform:translateY(-44px) scale(.9)}
+}
+/* 乐器：音符环绕着飘（每个音符起点/延迟不同） */
+.fx-music .fx-visual{animation:fxSway 1.7s ease-in-out forwards}
+@keyframes fxSway{
+  0%{transform:scale(.5);opacity:0}
+  14%{transform:scale(1.06);opacity:1}
+  30%{transform:rotate(-4deg) scale(1)}
+  55%{transform:rotate(4deg) scale(1.02)}
+  80%{transform:rotate(-2deg) scale(1)}
+  100%{transform:scale(1);opacity:1}
+}
+.fx-music .d1{left:-18px;top:6px;font-size:22px}
+.fx-music .d2{right:-22px;top:-6px;font-size:26px;animation-delay:.18s}
+.fx-music .d3{right:-10px;bottom:2px;font-size:19px;animation-delay:.34s}
+/* 运动：球落地弹跳 + 落地压扁 */
+.fx-sport .fx-visual{animation:fxBounce 1.7s cubic-bezier(.3,.9,.4,1) forwards}
+@keyframes fxBounce{
+  0%{transform:translateY(-64px) scale(1);opacity:0}
+  10%{opacity:1}
+  24%{transform:translateY(0) scale(1.08,.82)}
+  38%{transform:translateY(-34px) scale(.96,1.06)}
+  52%{transform:translateY(0) scale(1.05,.9)}
+  64%{transform:translateY(-14px) scale(1)}
+  74%{transform:translateY(0) scale(1.02,.96)}
+  84%,100%{transform:translateY(0) scale(1)}
+}
+.fx-sport .d1{left:-14px;top:-4px;font-size:18px;animation-delay:.1s}
+.fx-sport .d2{right:-14px;top:10px;font-size:15px;animation-delay:.3s}
+/* 阅读：书微微起伏，书页翻飞 */
+.fx-read .fx-visual{animation:fxBook 1.7s ease-in-out forwards}
+@keyframes fxBook{
+  0%{transform:scale(.5) rotate(-6deg);opacity:0}
+  16%{transform:scale(1.04) rotate(0);opacity:1}
+  45%{transform:scale(1) rotate(2deg)}
+  70%{transform:scale(1.02) rotate(-2deg)}
+  100%{transform:scale(1)}
+}
+.fx-page{
+  position:absolute;width:16px;height:12px;background:#FBF3E1;
+  border:1.5px solid #8A6A1F;border-radius:2px;pointer-events:none;
+  animation:fxPage 1.7s ease-out forwards;
+}
+.fx-page.p1{left:60%;top:-8px}
+.fx-page.p2{left:74%;top:4px;animation-delay:.22s}
+@keyframes fxPage{
+  0%,10%{opacity:0;transform:translate(0,0) rotate(0)}
+  25%{opacity:1}
+  100%{opacity:0;transform:translate(34px,-52px) rotate(38deg)}
+}
+/* 吃：果盘晃一晃 + 星光 */
+.fx-food .fx-visual{animation:fxWobble 1.7s ease forwards}
+@keyframes fxWobble{
+  0%{transform:scale(.5) rotate(0);opacity:0}
+  14%{transform:scale(1.1) rotate(-7deg);opacity:1}
+  30%{transform:rotate(6deg)}
+  46%{transform:rotate(-5deg) scale(1.03)}
+  62%{transform:rotate(3deg)}
+  78%{transform:rotate(0) scale(1)}
+  100%{transform:scale(1)}
+}
+.fx-food .d1{left:-20px;top:-2px;font-size:20px}
+.fx-food .d2{right:-20px;top:2px;font-size:16px;animation-delay:.16s}
+.fx-food .d3{right:-4px;bottom:-4px;font-size:14px;animation-delay:.32s}
+/* 早起：太阳从下面升上来，光芒星点散开 */
+.fx-sun .fx-visual{animation:fxRise 1.7s cubic-bezier(.25,1,.4,1) forwards}
+@keyframes fxRise{
+  0%{transform:translateY(56px) scale(.6);opacity:0}
+  12%{opacity:1}
+  42%{transform:translateY(-8px) scale(1.05)}
+  60%{transform:translateY(0) scale(1)}
+  80%{transform:translateY(-4px)}
+  100%{transform:translateY(0)}
+}
+.fx-sun .d1{left:-24px;top:-8px;font-size:18px;animation-delay:.25s}
+.fx-sun .d2{right:-24px;top:0;font-size:22px;animation-delay:.4s}
+/* 睡觉：月亮轻晃 + Zzz 越飘越远 */
+.fx-moon .fx-visual{animation:fxDrift 1.7s ease-in-out forwards}
+@keyframes fxDrift{
+  0%{transform:scale(.5) translateY(8px);opacity:0}
+  16%{transform:scale(1) translateY(0);opacity:1}
+  50%{transform:translateY(-6px) rotate(-3deg)}
+  100%{transform:translateY(-2px)}
+}
+.fx-moon .d1{left:56%;top:-14px;font-size:22px;animation-delay:.2s}
+.fx-moon .d2{left:70%;top:-26px;font-size:17px;animation-delay:.42s}
+.fx-moon .d3{left:82%;top:-34px;font-size:13px;animation-delay:.64s}
+/* 接送：校车从左开进、刹一下、再开出 */
+.fx-bus .fx-visual{animation:fxZoom 1.7s cubic-bezier(.35,.9,.4,1) forwards}
+@keyframes fxZoom{
+  0%{transform:translateX(-110px);opacity:0}
+  8%{opacity:1}
+  30%{transform:translateX(6px) rotate(1.6deg)}
+  40%{transform:translateX(-3px) rotate(-1deg)}
+  50%{transform:translateX(0)}
+  82%{transform:translateX(0);opacity:1}
+  100%{transform:translateX(130px);opacity:0}
 }
 
 /* ---------- 阶梯计分（阅读/乐器练习） ---------- */

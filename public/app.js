@@ -165,22 +165,48 @@ const COIN_SVG = '<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">' 
   '<path d="M20 13 L22.2 18.2 L28 18.6 L23.4 22.4 L25 28 L20 24.8 L15 28 L16.6 22.4 L12 18.6 L17.8 18.2 Z" fill="#F0DFB4"/>' +
   '</svg>';
 
-// 在点击处弹出存钱罐：金币掉进投币口 + 小猪被砸得一沉 + “+N 分” 冒出来
-function piggyPop(kidId, points, x, y) {
+// 任务类型 → 庆祝动效。没匹配到的都走默认存钱罐。
+const TASK_FX = {
+  clarinet: 'music', drum: 'music', note: 'music',            // 乐器：音符飘起来
+  soccer: 'sport', tennis: 'sport', exercise: 'sport', swim: 'sport', climb: 'sport', // 运动：球弹跳
+  book: 'read', scholastic: 'read', recite: 'read',           // 阅读：书页翻飞
+  apple: 'food', utensils: 'food',                            // 吃：果香星光
+  sunrise: 'sun',                                             // 早起：太阳升起
+  moon: 'moon',                                               // 睡觉/午睡：月亮 Zzz
+  bus: 'bus'                                                  // 接送：校车驶过
+};
+
+// 在点击处弹出庆祝动画：金币掉进存钱罐 / 音符飘 / 球弹跳…… + “+N 分” 冒出来
+function piggyPop(kidId, points, x, y, icon) {
   if (!points || points <= 0) return;
   const s = app.state;
   const kid = s && s.kids ? s.kids.find(k => k.id === kidId) : null;
   const now = (s && s.perKid[kidId] ? s.perKid[kidId].weekPoints : 0) + points;
+  const fx = TASK_FX[icon] || 'piggy';
   const el = document.createElement('div');
-  el.className = 'piggy';
+  el.className = 'piggy fx-' + fx;
   el.dataset.kid = kidId;
   const left = Math.max(110, Math.min(window.innerWidth - 110, x || window.innerWidth / 2));
   const top = Math.max(210, y || window.innerHeight / 2);
   el.style.left = left + 'px';
   el.style.top = top + 'px';
-  el.innerHTML =
-    '<div class="piggy-coin">' + COIN_SVG + '</div>' +
-    '<div class="piggy-bank">' + PIGGY_SVG + '</div>' +
+  let stage = '';
+  if (fx === 'piggy') {
+    stage = '<div class="piggy-coin">' + COIN_SVG + '</div>' +
+      '<div class="piggy-bank">' + PIGGY_SVG + '</div>';
+  } else {
+    const deco = {
+      music: '<span class="fx-deco d1">♪</span><span class="fx-deco d2">♫</span><span class="fx-deco d3">♪</span>',
+      read: '<span class="fx-page p1"></span><span class="fx-page p2"></span>',
+      food: '<span class="fx-deco d1">✦</span><span class="fx-deco d2">✦</span><span class="fx-deco d3">✦</span>',
+      sun: '<span class="fx-deco d1">✦</span><span class="fx-deco d2">✦</span>',
+      moon: '<span class="fx-deco d1">Z</span><span class="fx-deco d2">z</span><span class="fx-deco d3">z</span>',
+      sport: '<span class="fx-deco d1">✦</span><span class="fx-deco d2">✦</span>',
+      bus: ''
+    }[fx] || '';
+    stage = '<div class="fx-visual">' + tile(icon) + '</div>' + deco;
+  }
+  el.innerHTML = stage +
     '<div class="piggy-gain">+' + points + ' 分</div>' +
     '<div class="piggy-total">' + (kid ? esc(kid.name) + ' · ' : '') + '本周已存 ' + now + ' 分</div>';
   document.body.appendChild(el);
@@ -425,15 +451,29 @@ function render() {
   const total = s.familyWeekPoints || 0;
   $('#weekPointsText').innerHTML = '本周学院分 <b>' + total + '</b>';
 
-  // 顶栏身份牌：现在这台设备是谁 + 两个独立按钮（换人 / 分院）
-  const whoLabel = $('#whoLabel');
-  if (whoLabel) {
+  // 顶栏三人名牌：院徽 + 名字，悬停看进度，点一下换人；当前人用学院色高亮
+  const chips = $('#whoChips');
+  if (chips) {
     const me = myKidId();
-    const mk = me ? s.kids.find(k => k.id === me) : null;
-    whoLabel.textContent = mk ? (mk.name + ' · ' + houseOf(mk).name) : (isParentView() ? '家长视角' : '还没选人');
-    const wc = $('#whoCrest');
-    if (wc) wc.innerHTML = mk ? crestOf(mk.house) : (isParentView() ? ICONS.lock : ICONS.crest);
+    chips.innerHTML = s.kids.map(kid => {
+      const h = houseOf(kid);
+      const k = s.perKid[kid.id] || {};
+      const sel = me === kid.id;
+      const info = (kid.grade ? esc(kid.grade) + ' · ' : '') + esc(h.name) +
+        (kid.tags && kid.tags.length ? ' · ' + esc(kid.tags.join(' / ')) : '');
+      const tip =
+        '<span class="ct-name">' + esc(h.name) + (kid.grade ? ' · ' + esc(kid.grade) : ' · ' + esc(kid.role || '家人')) + '</span>' +
+        '<span class="ct-row">本周 <b>' + (k.weekPoints || 0) + '</b> 分 · 连续 <b>' + (k.streak || 0) + '</b> 天</span>' +
+        (kid.tags && kid.tags.length ? '<span class="ct-row ct-sub">' + esc(kid.tags.join(' / ')) + '</span>' : '') +
+        (sel ? '<span class="ct-row ct-go">就是TA在打卡</span>' : '<span class="ct-row ct-go">点一下换 ' + esc(kid.name) + ' 打卡</span>');
+      return '<button class="who-chip' + (sel ? ' is-me' : '') + '" data-act="switch-who" data-kid="' + kid.id + '"' +
+        ' style="--hc:' + h.color + ';--hsoft:' + h.soft + '">' +
+        '<span class="ic">' + crestOf(kid.house) + '</span><span class="nm">' + esc(kid.name) + '</span>' +
+        '<span class="chip-tip">' + tip + '</span></button>';
+    }).join('');
   }
+  const pf = $('#whoParentFlag');
+  if (pf) pf.hidden = !isParentView();
 
   // 家长端表单是每 4 秒后台同步时整体重绘的，重绘前先把用户正在输入的内容收进 app.form，
   // 否则刚敲的字会被旧数据冲回去（"21:45 前上床" 一秒后变回 "21:00 前上床"）
@@ -536,7 +576,9 @@ function taskRow(k, t, locked) {
 
 function renderToday(s) {
   const me = myKidId();
-  const cols = s.kids.map(kid => {
+  // 选了身份就只看自己的今日任务（不用长长一列拉到底）；家长视角仍看全员
+  const shown = me ? s.kids.filter(kid => kid.id === me) : s.kids;
+  const cols = shown.map(kid => {
     const k = s.perKid[kid.id];
     if (!k) return '';
     const locked = lockedFor(kid.id);
@@ -551,7 +593,7 @@ function renderToday(s) {
       '<div class="tasks">' + (k.tasks.length ? k.tasks.map(t => taskRow(k, t, locked)).join('') : '<div class="empty">今天没有安排任务</div>') + '</div>' +
       '</div></div>';
   }).join('');
-  view().innerHTML = '<div class="grid2">' + cols + '</div>' + houseCupBar(s);
+  view().innerHTML = '<div class="grid2' + (me ? ' solo' : '') + '">' + cols + '</div>' + houseCupBar(s);
 }
 
 function houseCupBar(s) {
@@ -780,6 +822,16 @@ document.addEventListener('click', async (e) => {
       return;
     }
 
+    // 顶栏名牌换人：一键切换，不用再开换人弹层
+    if (act === 'switch-who') {
+      const kidId = el.dataset.kid;
+      if (myKidId() === kidId) return;
+      hatDone(kidId);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      toast('换到 ' + kidName(kidId) + ' 啦，开始打卡吧');
+      return;
+    }
+
     if (act === 'practice') {
       // 阅读 / 练习类统一走这里：改分钟数，服务端按档位同步分数
       const kidId = el.dataset.kid;
@@ -805,7 +857,7 @@ document.addEventListener('click', async (e) => {
       if (!t) return;
       if (!t.done) {
         await api('POST', '/api/checkin', { kidId, taskId, date: s.today, done: true });
-        piggyPop(kidId, t.points, e.clientX, e.clientY);
+        piggyPop(kidId, t.points, e.clientX, e.clientY, t.icon);
         el.classList.add('pop');
       } else {
         await api('POST', '/api/checkin', { kidId, taskId, date: s.today, done: false });
@@ -958,8 +1010,6 @@ $('#pinInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') submi
 /* ---------- 启动 ---------- */
 $('#crest').innerHTML = ICONS.crest;
 $('#hatIc').innerHTML = HAT_SVG;
-$('#switchIc').innerHTML = ICONS.swap;
-$('#switchBtn').addEventListener('click', () => showHatIntro('switch'));
 $('#resortBtn').addEventListener('click', () => showHatIntro('resort'));
 
 /* 顶栏高度会随内容换行变化（比如身份牌文字变长、分数位数变多），
