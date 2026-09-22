@@ -1,8 +1,9 @@
-# 本地真实数据（含孩子姓名与打卡记录），不入库
-data/db.json
+# 真实数据入库（含孩子打卡记录），但提交前请走 /api/export 拉——
+# 导出接口会自动剥离家长密码，直接用运行中的 db.json 会把 pin 写进 Git 历史。
+# 破损/备份副本仍然不入库。
 data/db.json.broken.*
 data/*.backup.*
-data/*.json
+data/*.json.tmp
 
 # 依赖与系统文件
 node_modules/

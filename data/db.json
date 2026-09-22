@@ -1,0 +1,2336 @@
+{
+  "version": 1,
+  "kids": [
+    {
+      "id": "amelia",
+      "name": "Amelia",
+      "role": "姐姐",
+      "age": 10,
+      "grade": "G5-2",
+      "house": "gryffindor",
+      "color": "#9A3324",
+      "tags": [
+        "单簧管",
+        "攀岩",
+        "画画"
+      ],
+      "readingGoal": 20
+    },
+    {
+      "id": "aiden",
+      "name": "Aiden",
+      "role": "弟弟",
+      "age": 7,
+      "grade": "G2-1",
+      "house": "gryffindor",
+      "color": "#9A3324",
+      "tags": [
+        "架子鼓",
+        "足球",
+        "攀岩"
+      ],
+      "readingGoal": 20
+    },
+    {
+      "id": "dad",
+      "name": "爸爸",
+      "role": "爸爸",
+      "house": "slytherin",
+      "color": "#2F6B4F",
+      "type": "parent",
+      "tags": [],
+      "readingGoal": 0
+    }
+  ],
+  "tasks": [
+    {
+      "id": "t_wake",
+      "name": "6:30 按时早起",
+      "icon": "sunrise",
+      "kind": "normal",
+      "time": "06:30",
+      "points": 5,
+      "minutes": 0,
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "assignees": [
+        "amelia",
+        "aiden"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_recite",
+      "name": "在家朗诵 10 分钟",
+      "icon": "recite",
+      "kind": "normal",
+      "time": "06:40",
+      "points": 10,
+      "minutes": 10,
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "assignees": [
+        "amelia",
+        "aiden"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_exercise",
+      "name": "早起运动 20 分钟",
+      "icon": "exercise",
+      "kind": "normal",
+      "time": "06:40",
+      "points": 10,
+      "minutes": 20,
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "assignees": [
+        "amelia",
+        "aiden"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_table",
+      "name": "帮忙收拾桌子",
+      "icon": "table",
+      "kind": "normal",
+      "time": "18:30",
+      "points": 5,
+      "minutes": 5,
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "assignees": [
+        "amelia",
+        "aiden"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_english",
+      "name": "英语练习",
+      "icon": "globe",
+      "kind": "practice",
+      "time": "19:00",
+      "points": 10,
+      "minutes": 20,
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "assignees": [
+        "amelia",
+        "aiden"
+      ],
+      "active": true,
+      "tiers": [
+        [
+          10,
+          5
+        ],
+        [
+          20,
+          10
+        ],
+        [
+          30,
+          20
+        ]
+      ]
+    },
+    {
+      "id": "t_amc",
+      "name": "AMC 数学 20 分钟",
+      "icon": "math",
+      "kind": "normal",
+      "time": "19:30",
+      "points": 10,
+      "minutes": 20,
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "assignees": [
+        "amelia",
+        "aiden"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_read",
+      "name": "中文阅读",
+      "icon": "book",
+      "kind": "reading",
+      "time": "20:00",
+      "points": 15,
+      "minutes": 20,
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "assignees": [
+        "amelia",
+        "aiden"
+      ],
+      "active": true,
+      "tiers": [
+        [
+          10,
+          5
+        ],
+        [
+          20,
+          10
+        ],
+        [
+          30,
+          20
+        ]
+      ]
+    },
+    {
+      "id": "t_scholastic",
+      "name": "Scholastic 阅读",
+      "icon": "scholastic",
+      "kind": "practice",
+      "time": "20:30",
+      "points": 10,
+      "minutes": 15,
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "assignees": [
+        "amelia",
+        "aiden"
+      ],
+      "active": true,
+      "tiers": [
+        [
+          15,
+          10
+        ],
+        [
+          30,
+          20
+        ]
+      ]
+    },
+    {
+      "id": "t_bed",
+      "name": "22:00 前上床",
+      "icon": "moon",
+      "kind": "normal",
+      "time": "22:00",
+      "points": 5,
+      "minutes": 0,
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "assignees": [
+        "amelia",
+        "aiden"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_climb",
+      "name": "攀岩训练 60 分钟",
+      "icon": "climb",
+      "kind": "normal",
+      "time": "17:30",
+      "points": 10,
+      "minutes": 60,
+      "days": [
+        1,
+        3
+      ],
+      "assignees": [
+        "amelia"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_clarinet",
+      "name": "单簧管练习",
+      "icon": "clarinet",
+      "kind": "practice",
+      "time": "17:30",
+      "points": 10,
+      "minutes": 20,
+      "days": [
+        2,
+        4,
+        7
+      ],
+      "assignees": [
+        "amelia"
+      ],
+      "active": true,
+      "tiers": [
+        [
+          10,
+          5
+        ],
+        [
+          20,
+          10
+        ],
+        [
+          30,
+          20
+        ]
+      ]
+    },
+    {
+      "id": "t_tennis",
+      "name": "网球课 60 分钟",
+      "icon": "tennis",
+      "kind": "normal",
+      "time": "17:30",
+      "points": 10,
+      "minutes": 60,
+      "days": [
+        5
+      ],
+      "assignees": [
+        "amelia"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_draw",
+      "name": "自由画画 30 分钟",
+      "icon": "brush",
+      "kind": "normal",
+      "time": "16:00",
+      "points": 10,
+      "minutes": 30,
+      "days": [
+        6
+      ],
+      "assignees": [
+        "amelia"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_soccer",
+      "name": "足球训练 45 分钟",
+      "icon": "soccer",
+      "kind": "normal",
+      "time": "17:30",
+      "points": 10,
+      "minutes": 45,
+      "days": [
+        1,
+        3,
+        5
+      ],
+      "assignees": [
+        "aiden"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_drum",
+      "name": "架子鼓练习",
+      "icon": "drum",
+      "kind": "practice",
+      "time": "17:30",
+      "points": 10,
+      "minutes": 15,
+      "days": [
+        2,
+        4,
+        7
+      ],
+      "assignees": [
+        "aiden"
+      ],
+      "active": true,
+      "tiers": [
+        [
+          10,
+          5
+        ],
+        [
+          20,
+          10
+        ],
+        [
+          30,
+          20
+        ]
+      ]
+    },
+    {
+      "id": "t_mu45dnimt32b",
+      "name": "收拾书包和装备",
+      "icon": "star",
+      "kind": "normal",
+      "time": "21:30",
+      "points": 10,
+      "minutes": 5,
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "assignees": [
+        "amelia",
+        "aiden"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_dad_wake",
+      "name": "6:30 按时起床",
+      "icon": "sunrise",
+      "kind": "normal",
+      "time": "06:30",
+      "points": 5,
+      "minutes": 0,
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "assignees": [
+        "dad"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_dad_breakfast",
+      "name": "6:40 做早餐",
+      "icon": "utensils",
+      "kind": "normal",
+      "time": "06:40",
+      "points": 5,
+      "minutes": 0,
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "assignees": [
+        "dad"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_dad_table_am",
+      "name": "7:20 收拾桌子",
+      "icon": "table",
+      "kind": "normal",
+      "time": "07:20",
+      "points": 5,
+      "minutes": 5,
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "assignees": [
+        "dad"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_dad_drop",
+      "name": "7:30 送 Amelia、Aiden 上学",
+      "icon": "bus",
+      "kind": "normal",
+      "time": "07:30",
+      "points": 10,
+      "minutes": 0,
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "assignees": [
+        "dad"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_dad_diet",
+      "name": "12:30 健康饮食",
+      "icon": "apple",
+      "kind": "normal",
+      "time": "12:30",
+      "points": 5,
+      "minutes": 0,
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "assignees": [
+        "dad"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_dad_fruit",
+      "name": "14:00 下午吃水果",
+      "icon": "apple",
+      "kind": "normal",
+      "time": "14:00",
+      "points": 5,
+      "minutes": 0,
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "assignees": [
+        "dad"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_dad_pickup",
+      "name": "17:00 接 Amelia、Aiden 上学",
+      "icon": "bus",
+      "kind": "normal",
+      "time": "17:00",
+      "points": 10,
+      "minutes": 0,
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "assignees": [
+        "dad"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_dad_table_pm",
+      "name": "19:00 收拾桌子",
+      "icon": "table",
+      "kind": "normal",
+      "time": "19:00",
+      "points": 5,
+      "minutes": 5,
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "assignees": [
+        "dad"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_dad_homework",
+      "name": "20:00 指导乐乐多多写作业",
+      "icon": "pencil",
+      "kind": "normal",
+      "time": "20:00",
+      "points": 10,
+      "minutes": 0,
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "assignees": [
+        "dad"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_dad_trash",
+      "name": "21:00 倒垃圾和散步",
+      "icon": "walk",
+      "kind": "normal",
+      "time": "21:00",
+      "points": 5,
+      "minutes": 0,
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "assignees": [
+        "dad"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_dad_exercise",
+      "name": "10:30 运动",
+      "icon": "exercise",
+      "kind": "practice",
+      "time": "10:30",
+      "points": 20,
+      "minutes": 60,
+      "tiers": [
+        [
+          30,
+          10
+        ],
+        [
+          60,
+          20
+        ]
+      ],
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "assignees": [
+        "dad"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_dad_swim",
+      "name": "11:30 游泳",
+      "icon": "swim",
+      "kind": "practice",
+      "time": "11:30",
+      "points": 10,
+      "minutes": 20,
+      "tiers": [
+        [
+          10,
+          5
+        ],
+        [
+          20,
+          10
+        ],
+        [
+          30,
+          20
+        ]
+      ],
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "assignees": [
+        "dad"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_dad_nap",
+      "name": "13:30 午睡",
+      "icon": "moon",
+      "kind": "practice",
+      "time": "13:30",
+      "points": 20,
+      "minutes": 30,
+      "tiers": [
+        [
+          10,
+          5
+        ],
+        [
+          20,
+          10
+        ],
+        [
+          30,
+          20
+        ]
+      ],
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "assignees": [
+        "dad"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_dad_read_pm",
+      "name": "14:30 下午中文阅读",
+      "icon": "book",
+      "kind": "practice",
+      "time": "14:30",
+      "points": 20,
+      "minutes": 20,
+      "tiers": [
+        [
+          10,
+          5
+        ],
+        [
+          20,
+          10
+        ],
+        [
+          30,
+          20
+        ]
+      ],
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "assignees": [
+        "dad"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_dad_work",
+      "name": "15:00 工作",
+      "icon": "briefcase",
+      "kind": "practice",
+      "time": "15:00",
+      "points": 30,
+      "minutes": 120,
+      "tiers": [
+        [
+          60,
+          15
+        ],
+        [
+          120,
+          30
+        ]
+      ],
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "assignees": [
+        "dad"
+      ],
+      "active": true
+    },
+    {
+      "id": "t_mu9wf4sersmy",
+      "name": "帮忙端盘子",
+      "icon": "star",
+      "kind": "normal",
+      "time": "17:30",
+      "points": 10,
+      "minutes": 5,
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "assignees": [
+        "amelia",
+        "aiden"
+      ],
+      "active": true
+    }
+  ],
+  "activities": [
+    {
+      "id": "a1",
+      "name": "攀岩馆长课",
+      "day": 6,
+      "time": "10:00",
+      "assignees": [
+        "amelia",
+        "aiden"
+      ],
+      "atSchool": false
+    },
+    {
+      "id": "a2",
+      "name": "阅读马拉松",
+      "day": 6,
+      "time": "15:00",
+      "assignees": [
+        "amelia",
+        "aiden"
+      ],
+      "atSchool": false
+    },
+    {
+      "id": "a3",
+      "name": "家庭电影夜",
+      "day": 5,
+      "time": "19:30",
+      "assignees": [
+        "amelia",
+        "aiden"
+      ],
+      "atSchool": false
+    },
+    {
+      "id": "a4",
+      "name": "公园写生",
+      "day": 7,
+      "time": "16:00",
+      "assignees": [
+        "amelia"
+      ],
+      "atSchool": false
+    },
+    {
+      "id": "a5",
+      "name": "社区足球赛",
+      "day": 7,
+      "time": "09:00",
+      "assignees": [
+        "aiden"
+      ],
+      "atSchool": false
+    },
+    {
+      "id": "a6",
+      "name": "在校已完成 · 游泳课",
+      "day": 5,
+      "time": "在校",
+      "assignees": [
+        "amelia",
+        "aiden"
+      ],
+      "atSchool": true
+    }
+  ],
+  "checkins": [
+    {
+      "id": "c_mu2r4myrhkuq",
+      "kidId": "aiden",
+      "taskId": "t_read",
+      "date": "2026-09-15",
+      "points": 15,
+      "ts": 1789481578563
+    },
+    {
+      "id": "c_mu2r4vcwab0n",
+      "kidId": "amelia",
+      "taskId": "t_english",
+      "date": "2026-09-15",
+      "points": 10,
+      "ts": 1789481589440
+    },
+    {
+      "id": "c_mu2r51yx4d6c",
+      "kidId": "aiden",
+      "taskId": "t_english",
+      "date": "2026-09-15",
+      "points": 10,
+      "ts": 1789481598009
+    },
+    {
+      "id": "c_mu2r575xw6kw",
+      "kidId": "amelia",
+      "taskId": "t_clarinet",
+      "date": "2026-09-15",
+      "points": 10,
+      "ts": 1789481604741
+    },
+    {
+      "id": "c_mu2r5bbk9kv0",
+      "kidId": "amelia",
+      "taskId": "t_amc",
+      "date": "2026-09-15",
+      "points": 10,
+      "ts": 1789481610128
+    },
+    {
+      "id": "c_mu2r5q8upesi",
+      "kidId": "amelia",
+      "taskId": "t_scholastic",
+      "date": "2026-09-15",
+      "points": 10,
+      "ts": 1789481629470
+    },
+    {
+      "id": "c_mu2r6aus3sip",
+      "kidId": "aiden",
+      "taskId": "t_drum",
+      "date": "2026-09-15",
+      "points": 10,
+      "ts": 1789481656180
+    },
+    {
+      "id": "c_mu44so94kls0",
+      "kidId": "amelia",
+      "taskId": "t_wake",
+      "date": "2026-09-16",
+      "points": 5,
+      "ts": 1789565001160
+    },
+    {
+      "id": "c_mu44stc3591b",
+      "kidId": "aiden",
+      "taskId": "t_wake",
+      "date": "2026-09-16",
+      "points": 5,
+      "ts": 1789565007747
+    },
+    {
+      "id": "c_mu44syll0aa4",
+      "kidId": "amelia",
+      "taskId": "t_table",
+      "date": "2026-09-16",
+      "points": 5,
+      "ts": 1789565014569
+    },
+    {
+      "id": "c_mu44t4022vrl",
+      "kidId": "aiden",
+      "taskId": "t_table",
+      "date": "2026-09-16",
+      "points": 5,
+      "ts": 1789565021570
+    },
+    {
+      "id": "c_mu44t6z162hi",
+      "kidId": "amelia",
+      "taskId": "t_english",
+      "date": "2026-09-16",
+      "points": 10,
+      "ts": 1789565025421
+    },
+    {
+      "id": "c_mu44tbbt2dox",
+      "kidId": "amelia",
+      "taskId": "t_amc",
+      "date": "2026-09-16",
+      "points": 10,
+      "ts": 1789565031065
+    },
+    {
+      "id": "c_mu44tjr5nkyq",
+      "kidId": "amelia",
+      "taskId": "t_read",
+      "date": "2026-09-16",
+      "points": 20,
+      "ts": 1789565041985
+    },
+    {
+      "id": "c_mu44tnsridxn",
+      "kidId": "aiden",
+      "taskId": "t_english",
+      "date": "2026-09-16",
+      "points": 10,
+      "ts": 1789565047227
+    },
+    {
+      "id": "c_mu44ttccm12s",
+      "kidId": "aiden",
+      "taskId": "t_read",
+      "date": "2026-09-16",
+      "points": 20,
+      "ts": 1789565054412
+    },
+    {
+      "id": "c_mu44u8n36opi",
+      "kidId": "amelia",
+      "taskId": "t_climb",
+      "date": "2026-09-16",
+      "points": 10,
+      "ts": 1789565074239
+    },
+    {
+      "id": "c_mu44ukodja02",
+      "kidId": "aiden",
+      "taskId": "t_soccer",
+      "date": "2026-09-16",
+      "points": 10,
+      "ts": 1789565089837
+    },
+    {
+      "id": "c_mu45fzew6kwv",
+      "kidId": "aiden",
+      "taskId": "t_mu45dnimt32b",
+      "date": "2026-09-16",
+      "points": 5,
+      "ts": 1789566088712
+    },
+    {
+      "id": "c_mu45gyus34b4",
+      "kidId": "amelia",
+      "taskId": "t_mu45dnimt32b",
+      "date": "2026-09-16",
+      "points": 5,
+      "ts": 1789566134644
+    },
+    {
+      "id": "c_mu45j6npf5uq",
+      "kidId": "aiden",
+      "taskId": "t_bed",
+      "date": "2026-09-16",
+      "points": 5,
+      "ts": 1789566238069
+    },
+    {
+      "id": "c_mu5ldjs4m0yo",
+      "kidId": "amelia",
+      "taskId": "t_wake",
+      "date": "2026-09-17",
+      "points": 5,
+      "ts": 1789653315172
+    },
+    {
+      "id": "c_mu5ldyjo956i",
+      "kidId": "amelia",
+      "taskId": "t_english",
+      "date": "2026-09-17",
+      "points": 20,
+      "ts": 1789653334308
+    },
+    {
+      "id": "c_mu5le81x3t2m",
+      "kidId": "amelia",
+      "taskId": "t_amc",
+      "date": "2026-09-17",
+      "points": 10,
+      "ts": 1789653346629
+    },
+    {
+      "id": "c_mu5lej3qzrdt",
+      "kidId": "amelia",
+      "taskId": "t_read",
+      "date": "2026-09-17",
+      "points": 5,
+      "ts": 1789653360950
+    },
+    {
+      "id": "c_mu5letppxakg",
+      "kidId": "amelia",
+      "taskId": "t_bed",
+      "date": "2026-09-17",
+      "points": 5,
+      "ts": 1789653374701
+    },
+    {
+      "id": "c_mu5lf6a9uahm",
+      "kidId": "amelia",
+      "taskId": "t_clarinet",
+      "date": "2026-09-17",
+      "points": 20,
+      "ts": 1789653390993
+    },
+    {
+      "id": "c_mu5lfg6tn1cd",
+      "kidId": "amelia",
+      "taskId": "t_mu45dnimt32b",
+      "date": "2026-09-17",
+      "points": 5,
+      "ts": 1789653403829
+    },
+    {
+      "id": "c_mu5lg68iokpe",
+      "kidId": "aiden",
+      "taskId": "t_wake",
+      "date": "2026-09-17",
+      "points": 5,
+      "ts": 1789653437586
+    },
+    {
+      "id": "c_mu5lgmp0o71t",
+      "kidId": "aiden",
+      "taskId": "t_english",
+      "date": "2026-09-17",
+      "points": 5,
+      "ts": 1789653458916
+    },
+    {
+      "id": "c_mu5lgwvgnvnc",
+      "kidId": "aiden",
+      "taskId": "t_amc",
+      "date": "2026-09-17",
+      "points": 10,
+      "ts": 1789653472108
+    },
+    {
+      "id": "c_mu5lh28xivky",
+      "kidId": "aiden",
+      "taskId": "t_read",
+      "date": "2026-09-17",
+      "points": 5,
+      "ts": 1789653479073
+    },
+    {
+      "id": "c_mu5lh86lsrli",
+      "kidId": "aiden",
+      "taskId": "t_scholastic",
+      "date": "2026-09-17",
+      "points": 20,
+      "ts": 1789653486765
+    },
+    {
+      "id": "c_mu5lhdtmze83",
+      "kidId": "aiden",
+      "taskId": "t_bed",
+      "date": "2026-09-17",
+      "points": 5,
+      "ts": 1789653494074
+    },
+    {
+      "id": "c_mu5lhm9vow30",
+      "kidId": "aiden",
+      "taskId": "t_mu45dnimt32b",
+      "date": "2026-09-17",
+      "points": 5,
+      "ts": 1789653505027
+    },
+    {
+      "id": "c_mu5lhsxcoknl",
+      "kidId": "aiden",
+      "taskId": "t_drum",
+      "date": "2026-09-17",
+      "points": 10,
+      "ts": 1789653513648
+    },
+    {
+      "id": "c_mu71wr6d3a25",
+      "kidId": "amelia",
+      "taskId": "t_wake",
+      "date": "2026-09-18",
+      "points": 5,
+      "ts": 1789741551253
+    },
+    {
+      "id": "c_mu71x04vev7k",
+      "kidId": "amelia",
+      "taskId": "t_english",
+      "date": "2026-09-18",
+      "points": 10,
+      "ts": 1789741562863
+    },
+    {
+      "id": "c_mu71x6emo0cz",
+      "kidId": "amelia",
+      "taskId": "t_amc",
+      "date": "2026-09-18",
+      "points": 10,
+      "ts": 1789741570990
+    },
+    {
+      "id": "c_mu71xnw923e3",
+      "kidId": "amelia",
+      "taskId": "t_read",
+      "date": "2026-09-18",
+      "points": 10,
+      "ts": 1789741593657
+    },
+    {
+      "id": "c_mu71xzhnl0wm",
+      "kidId": "amelia",
+      "taskId": "t_bed",
+      "date": "2026-09-18",
+      "points": 5,
+      "ts": 1789741608683
+    },
+    {
+      "id": "c_mu722y2ndagj",
+      "kidId": "amelia",
+      "taskId": "t_tennis",
+      "date": "2026-09-18",
+      "points": 10,
+      "ts": 1789741840127
+    },
+    {
+      "id": "c_mu723jt9o71m",
+      "kidId": "aiden",
+      "taskId": "t_wake",
+      "date": "2026-09-18",
+      "points": 5,
+      "ts": 1789741868302
+    },
+    {
+      "id": "c_mu7240p70q34",
+      "kidId": "aiden",
+      "taskId": "t_english",
+      "date": "2026-09-18",
+      "points": 10,
+      "ts": 1789741890187
+    },
+    {
+      "id": "c_mu724j73qq02",
+      "kidId": "aiden",
+      "taskId": "t_amc",
+      "date": "2026-09-18",
+      "points": 10,
+      "ts": 1789741914159
+    },
+    {
+      "id": "c_mu724t57ii1y",
+      "kidId": "aiden",
+      "taskId": "t_read",
+      "date": "2026-09-18",
+      "points": 5,
+      "ts": 1789741927051
+    },
+    {
+      "id": "c_mu7254f2qkh2",
+      "kidId": "aiden",
+      "taskId": "t_soccer",
+      "date": "2026-09-18",
+      "points": 10,
+      "ts": 1789741941662
+    },
+    {
+      "id": "c_mu725dg6ythi",
+      "kidId": "aiden",
+      "taskId": "t_bed",
+      "date": "2026-09-18",
+      "points": 5,
+      "ts": 1789741953366
+    },
+    {
+      "id": "c_mu9wfbs0ehk2",
+      "kidId": "amelia",
+      "taskId": "t_wake",
+      "date": "2026-09-20",
+      "points": 5,
+      "ts": 1789913738592
+    },
+    {
+      "id": "c_mu9wfl8yt8n5",
+      "kidId": "amelia",
+      "taskId": "t_english",
+      "date": "2026-09-20",
+      "points": 5,
+      "ts": 1789913750866
+    },
+    {
+      "id": "c_mu9wfv02dk3v",
+      "kidId": "amelia",
+      "taskId": "t_amc",
+      "date": "2026-09-20",
+      "points": 10,
+      "ts": 1789913763506
+    },
+    {
+      "id": "c_mu9wg2ysaacd",
+      "kidId": "amelia",
+      "taskId": "t_read",
+      "date": "2026-09-20",
+      "points": 5,
+      "ts": 1789913773828
+    },
+    {
+      "id": "c_mu9wgf3eiwkp",
+      "kidId": "amelia",
+      "taskId": "t_scholastic",
+      "date": "2026-09-20",
+      "points": 10,
+      "ts": 1789913789546
+    },
+    {
+      "id": "c_mu9wgj4utlin",
+      "kidId": "amelia",
+      "taskId": "t_clarinet",
+      "date": "2026-09-20",
+      "points": 10,
+      "ts": 1789913794782
+    },
+    {
+      "id": "c_mu9wgl5yneyq",
+      "kidId": "amelia",
+      "taskId": "t_bed",
+      "date": "2026-09-20",
+      "points": 5,
+      "ts": 1789913797414
+    },
+    {
+      "id": "c_mu9wgmxqnhnq",
+      "kidId": "amelia",
+      "taskId": "t_mu45dnimt32b",
+      "date": "2026-09-20",
+      "points": 10,
+      "ts": 1789913799710
+    },
+    {
+      "id": "c_mu9whcvrui6h",
+      "kidId": "aiden",
+      "taskId": "t_wake",
+      "date": "2026-09-20",
+      "points": 5,
+      "ts": 1789913833335
+    },
+    {
+      "id": "c_mu9whp531i1y",
+      "kidId": "aiden",
+      "taskId": "t_english",
+      "date": "2026-09-20",
+      "points": 5,
+      "ts": 1789913849223
+    },
+    {
+      "id": "c_mu9whyf4cqs1",
+      "kidId": "aiden",
+      "taskId": "t_amc",
+      "date": "2026-09-20",
+      "points": 10,
+      "ts": 1789913861248
+    },
+    {
+      "id": "c_mu9wi1umxprg",
+      "kidId": "aiden",
+      "taskId": "t_read",
+      "date": "2026-09-20",
+      "points": 5,
+      "ts": 1789913865694
+    },
+    {
+      "id": "c_mu9wiccx1zqq",
+      "kidId": "aiden",
+      "taskId": "t_bed",
+      "date": "2026-09-20",
+      "points": 5,
+      "ts": 1789913879313
+    },
+    {
+      "id": "c_mu9wieihqhq8",
+      "kidId": "aiden",
+      "taskId": "t_scholastic",
+      "date": "2026-09-20",
+      "points": 10,
+      "ts": 1789913882105
+    },
+    {
+      "id": "c_mu9wik8c27st",
+      "kidId": "aiden",
+      "taskId": "t_drum",
+      "date": "2026-09-20",
+      "points": 20,
+      "ts": 1789913889516
+    },
+    {
+      "id": "c_mu9wj0gnzus1",
+      "kidId": "aiden",
+      "taskId": "t_mu45dnimt32b",
+      "date": "2026-09-20",
+      "points": 10,
+      "ts": 1789913910551
+    },
+    {
+      "id": "c_mu9wj2hvofgu",
+      "kidId": "aiden",
+      "taskId": "t_mu9wf4sersmy",
+      "date": "2026-09-20",
+      "points": 10,
+      "ts": 1789913913187
+    },
+    {
+      "id": "c_mu9wkjanqra4",
+      "kidId": "dad",
+      "taskId": "t_dad_wake",
+      "date": "2026-09-20",
+      "points": 5,
+      "ts": 1789913981615
+    },
+    {
+      "id": "c_mu9wkl9ylzb4",
+      "kidId": "dad",
+      "taskId": "t_dad_breakfast",
+      "date": "2026-09-20",
+      "points": 5,
+      "ts": 1789913984182
+    },
+    {
+      "id": "c_mu9wkmrxd7u2",
+      "kidId": "dad",
+      "taskId": "t_dad_table_am",
+      "date": "2026-09-20",
+      "points": 5,
+      "ts": 1789913986125
+    },
+    {
+      "id": "c_mu9wkof5etol",
+      "kidId": "dad",
+      "taskId": "t_dad_diet",
+      "date": "2026-09-20",
+      "points": 5,
+      "ts": 1789913988257
+    },
+    {
+      "id": "c_mu9wkq12j09i",
+      "kidId": "dad",
+      "taskId": "t_dad_fruit",
+      "date": "2026-09-20",
+      "points": 5,
+      "ts": 1789913990342
+    },
+    {
+      "id": "c_mu9wkrsdv83y",
+      "kidId": "dad",
+      "taskId": "t_dad_table_pm",
+      "date": "2026-09-20",
+      "points": 5,
+      "ts": 1789913992621
+    },
+    {
+      "id": "c_mu9wku9g9ots",
+      "kidId": "dad",
+      "taskId": "t_dad_homework",
+      "date": "2026-09-20",
+      "points": 10,
+      "ts": 1789913995828
+    },
+    {
+      "id": "c_mu9wkyys16j1",
+      "kidId": "dad",
+      "taskId": "t_dad_trash",
+      "date": "2026-09-20",
+      "points": 5,
+      "ts": 1789914001924
+    },
+    {
+      "id": "c_mu9wl2t4v3to",
+      "kidId": "dad",
+      "taskId": "t_dad_exercise",
+      "date": "2026-09-20",
+      "points": 20,
+      "ts": 1789914006904
+    },
+    {
+      "id": "c_mu9wldrsy0g5",
+      "kidId": "dad",
+      "taskId": "t_dad_nap",
+      "date": "2026-09-20",
+      "points": 5,
+      "ts": 1789914021112
+    },
+    {
+      "id": "c_mu9wmgeboaek",
+      "kidId": "dad",
+      "taskId": "t_dad_read_pm",
+      "date": "2026-09-20",
+      "points": 20,
+      "ts": 1789914071171
+    },
+    {
+      "id": "c_mu9wmrn12utu",
+      "kidId": "dad",
+      "taskId": "t_dad_work",
+      "date": "2026-09-20",
+      "points": 30,
+      "ts": 1789914085741
+    },
+    {
+      "id": "c_mubcce11uwps",
+      "kidId": "amelia",
+      "taskId": "t_wake",
+      "date": "2026-09-21",
+      "points": 5,
+      "ts": 1790000941573
+    },
+    {
+      "id": "c_mubccj7d6cav",
+      "kidId": "amelia",
+      "taskId": "t_table",
+      "date": "2026-09-21",
+      "points": 5,
+      "ts": 1790000948281
+    },
+    {
+      "id": "c_mubccmqcyart",
+      "kidId": "amelia",
+      "taskId": "t_english",
+      "date": "2026-09-21",
+      "points": 5,
+      "ts": 1790000952852
+    },
+    {
+      "id": "c_mubccu6ejwyu",
+      "kidId": "amelia",
+      "taskId": "t_amc",
+      "date": "2026-09-21",
+      "points": 10,
+      "ts": 1790000962502
+    },
+    {
+      "id": "c_mubccxsabcmx",
+      "kidId": "amelia",
+      "taskId": "t_read",
+      "date": "2026-09-21",
+      "points": 10,
+      "ts": 1790000967178
+    },
+    {
+      "id": "c_mubcd4hy499e",
+      "kidId": "amelia",
+      "taskId": "t_bed",
+      "date": "2026-09-21",
+      "points": 5,
+      "ts": 1790000975878
+    },
+    {
+      "id": "c_mubcd72yx1k6",
+      "kidId": "amelia",
+      "taskId": "t_climb",
+      "date": "2026-09-21",
+      "points": 10,
+      "ts": 1790000979226
+    },
+    {
+      "id": "c_mubcdb9dx9h0",
+      "kidId": "amelia",
+      "taskId": "t_mu45dnimt32b",
+      "date": "2026-09-21",
+      "points": 10,
+      "ts": 1790000984641
+    },
+    {
+      "id": "c_mubcddwmx1mn",
+      "kidId": "amelia",
+      "taskId": "t_mu9wf4sersmy",
+      "date": "2026-09-21",
+      "points": 10,
+      "ts": 1790000988070
+    },
+    {
+      "id": "c_mubcdnru9769",
+      "kidId": "aiden",
+      "taskId": "t_wake",
+      "date": "2026-09-21",
+      "points": 5,
+      "ts": 1790001000858
+    },
+    {
+      "id": "c_mubce59hy0zu",
+      "kidId": "aiden",
+      "taskId": "t_english",
+      "date": "2026-09-21",
+      "points": 10,
+      "ts": 1790001023525
+    },
+    {
+      "id": "c_mubcebwa4bpz",
+      "kidId": "aiden",
+      "taskId": "t_amc",
+      "date": "2026-09-21",
+      "points": 10,
+      "ts": 1790001032122
+    },
+    {
+      "id": "c_mubcej5ncc1p",
+      "kidId": "aiden",
+      "taskId": "t_read",
+      "date": "2026-09-21",
+      "points": 5,
+      "ts": 1790001041531
+    },
+    {
+      "id": "c_mubcen93zvuu",
+      "kidId": "aiden",
+      "taskId": "t_bed",
+      "date": "2026-09-21",
+      "points": 5,
+      "ts": 1790001046839
+    },
+    {
+      "id": "c_mubceotpq304",
+      "kidId": "aiden",
+      "taskId": "t_soccer",
+      "date": "2026-09-21",
+      "points": 10,
+      "ts": 1790001048877
+    },
+    {
+      "id": "c_mubceql10yzf",
+      "kidId": "aiden",
+      "taskId": "t_mu45dnimt32b",
+      "date": "2026-09-21",
+      "points": 10,
+      "ts": 1790001051157
+    },
+    {
+      "id": "c_mubceuak0i4z",
+      "kidId": "aiden",
+      "taskId": "t_mu9wf4sersmy",
+      "date": "2026-09-21",
+      "points": 10,
+      "ts": 1790001055964
+    },
+    {
+      "id": "c_mubcf1uwavuo",
+      "kidId": "dad",
+      "taskId": "t_dad_wake",
+      "date": "2026-09-21",
+      "points": 5,
+      "ts": 1790001065768
+    },
+    {
+      "id": "c_mubcf30mo2ll",
+      "kidId": "dad",
+      "taskId": "t_dad_breakfast",
+      "date": "2026-09-21",
+      "points": 5,
+      "ts": 1790001067270
+    },
+    {
+      "id": "c_mubcf4zsdmkf",
+      "kidId": "dad",
+      "taskId": "t_dad_drop",
+      "date": "2026-09-21",
+      "points": 10,
+      "ts": 1790001069832
+    },
+    {
+      "id": "c_mubcf8exhrfp",
+      "kidId": "dad",
+      "taskId": "t_dad_table_am",
+      "date": "2026-09-21",
+      "points": 5,
+      "ts": 1790001074265
+    },
+    {
+      "id": "c_mubcffiuiefr",
+      "kidId": "dad",
+      "taskId": "t_dad_diet",
+      "date": "2026-09-21",
+      "points": 5,
+      "ts": 1790001083478
+    },
+    {
+      "id": "c_mubcfgxdbq4k",
+      "kidId": "dad",
+      "taskId": "t_dad_fruit",
+      "date": "2026-09-21",
+      "points": 5,
+      "ts": 1790001085297
+    },
+    {
+      "id": "c_mubcfift7tph",
+      "kidId": "dad",
+      "taskId": "t_dad_pickup",
+      "date": "2026-09-21",
+      "points": 10,
+      "ts": 1790001087257
+    },
+    {
+      "id": "c_mubcfk7gc22j",
+      "kidId": "dad",
+      "taskId": "t_dad_table_pm",
+      "date": "2026-09-21",
+      "points": 5,
+      "ts": 1790001089548
+    },
+    {
+      "id": "c_mubcfmwaries",
+      "kidId": "dad",
+      "taskId": "t_dad_homework",
+      "date": "2026-09-21",
+      "points": 10,
+      "ts": 1790001093034
+    },
+    {
+      "id": "c_mubcfoesvrd7",
+      "kidId": "dad",
+      "taskId": "t_dad_trash",
+      "date": "2026-09-21",
+      "points": 5,
+      "ts": 1790001094996
+    },
+    {
+      "id": "c_mubcfw9t04zo",
+      "kidId": "dad",
+      "taskId": "t_dad_swim",
+      "date": "2026-09-21",
+      "points": 5,
+      "ts": 1790001105185
+    },
+    {
+      "id": "c_mubcg0echbex",
+      "kidId": "dad",
+      "taskId": "t_dad_nap",
+      "date": "2026-09-21",
+      "points": 5,
+      "ts": 1790001110532
+    },
+    {
+      "id": "c_mubcgacr5mn0",
+      "kidId": "dad",
+      "taskId": "t_dad_read_pm",
+      "date": "2026-09-21",
+      "points": 5,
+      "ts": 1790001123435
+    },
+    {
+      "id": "c_mucudqhz1w7k",
+      "kidId": "amelia",
+      "taskId": "t_wake",
+      "date": "2026-09-22",
+      "points": 5,
+      "ts": 1790091703655
+    },
+    {
+      "id": "c_mucudvwdoovt",
+      "kidId": "amelia",
+      "taskId": "t_english",
+      "date": "2026-09-22",
+      "points": 10,
+      "ts": 1790091710653
+    },
+    {
+      "id": "c_mucudwvghvsj",
+      "kidId": "amelia",
+      "taskId": "t_amc",
+      "date": "2026-09-22",
+      "points": 10,
+      "ts": 1790091711916
+    },
+    {
+      "id": "c_mucudy7ql3n5",
+      "kidId": "amelia",
+      "taskId": "t_read",
+      "date": "2026-09-22",
+      "points": 10,
+      "ts": 1790091713654
+    },
+    {
+      "id": "c_mucue1airxu0",
+      "kidId": "amelia",
+      "taskId": "t_bed",
+      "date": "2026-09-22",
+      "points": 5,
+      "ts": 1790091717642
+    },
+    {
+      "id": "c_mucue34afqzv",
+      "kidId": "amelia",
+      "taskId": "t_clarinet",
+      "date": "2026-09-22",
+      "points": 5,
+      "ts": 1790091720010
+    },
+    {
+      "id": "c_mucue5jgbmuw",
+      "kidId": "amelia",
+      "taskId": "t_mu45dnimt32b",
+      "date": "2026-09-22",
+      "points": 10,
+      "ts": 1790091723148
+    },
+    {
+      "id": "c_mucuegdb97k9",
+      "kidId": "aiden",
+      "taskId": "t_wake",
+      "date": "2026-09-22",
+      "points": 5,
+      "ts": 1790091737183
+    },
+    {
+      "id": "c_mucuej4rs177",
+      "kidId": "aiden",
+      "taskId": "t_english",
+      "date": "2026-09-22",
+      "points": 10,
+      "ts": 1790091740763
+    },
+    {
+      "id": "c_mucuelvwfe7y",
+      "kidId": "aiden",
+      "taskId": "t_read",
+      "date": "2026-09-22",
+      "points": 5,
+      "ts": 1790091744332
+    },
+    {
+      "id": "c_mucueny00ypd",
+      "kidId": "aiden",
+      "taskId": "t_bed",
+      "date": "2026-09-22",
+      "points": 5,
+      "ts": 1790091747000
+    },
+    {
+      "id": "c_mucuep1o3u98",
+      "kidId": "aiden",
+      "taskId": "t_drum",
+      "date": "2026-09-22",
+      "points": 5,
+      "ts": 1790091748428
+    },
+    {
+      "id": "c_mucuequan6kb",
+      "kidId": "aiden",
+      "taskId": "t_scholastic",
+      "date": "2026-09-22",
+      "points": 10,
+      "ts": 1790091750754
+    },
+    {
+      "id": "c_mucuf0e1tcx2",
+      "kidId": "dad",
+      "taskId": "t_dad_wake",
+      "date": "2026-09-22",
+      "points": 5,
+      "ts": 1790091763129
+    },
+    {
+      "id": "c_mucuf15d9oce",
+      "kidId": "dad",
+      "taskId": "t_dad_breakfast",
+      "date": "2026-09-22",
+      "points": 5,
+      "ts": 1790091764113
+    },
+    {
+      "id": "c_mucuf1p2zexc",
+      "kidId": "dad",
+      "taskId": "t_dad_table_am",
+      "date": "2026-09-22",
+      "points": 5,
+      "ts": 1790091764822
+    },
+    {
+      "id": "c_mucuf2cx3fpq",
+      "kidId": "dad",
+      "taskId": "t_dad_drop",
+      "date": "2026-09-22",
+      "points": 10,
+      "ts": 1790091765681
+    },
+    {
+      "id": "c_mucuf3r0dwws",
+      "kidId": "dad",
+      "taskId": "t_dad_fruit",
+      "date": "2026-09-22",
+      "points": 5,
+      "ts": 1790091767484
+    },
+    {
+      "id": "c_mucuf59plizz",
+      "kidId": "dad",
+      "taskId": "t_dad_table_pm",
+      "date": "2026-09-22",
+      "points": 5,
+      "ts": 1790091769453
+    },
+    {
+      "id": "c_mucuf6co3wu6",
+      "kidId": "dad",
+      "taskId": "t_dad_diet",
+      "date": "2026-09-22",
+      "points": 5,
+      "ts": 1790091770856
+    },
+    {
+      "id": "c_mucuf7384zhb",
+      "kidId": "dad",
+      "taskId": "t_dad_pickup",
+      "date": "2026-09-22",
+      "points": 10,
+      "ts": 1790091771812
+    },
+    {
+      "id": "c_mucuf8rfib7i",
+      "kidId": "dad",
+      "taskId": "t_dad_homework",
+      "date": "2026-09-22",
+      "points": 10,
+      "ts": 1790091773979
+    },
+    {
+      "id": "c_mucuf9wt55nj",
+      "kidId": "dad",
+      "taskId": "t_dad_trash",
+      "date": "2026-09-22",
+      "points": 5,
+      "ts": 1790091775469
+    },
+    {
+      "id": "c_mucufc1akemj",
+      "kidId": "dad",
+      "taskId": "t_dad_exercise",
+      "date": "2026-09-22",
+      "points": 10,
+      "ts": 1790091778222
+    },
+    {
+      "id": "c_mucufewlz8tp",
+      "kidId": "dad",
+      "taskId": "t_dad_swim",
+      "date": "2026-09-22",
+      "points": 20,
+      "ts": 1790091781941
+    },
+    {
+      "id": "c_mucufi8twx7g",
+      "kidId": "dad",
+      "taskId": "t_dad_nap",
+      "date": "2026-09-22",
+      "points": 20,
+      "ts": 1790091786269
+    },
+    {
+      "id": "c_mucufnr7029b",
+      "kidId": "dad",
+      "taskId": "t_dad_read_pm",
+      "date": "2026-09-22",
+      "points": 20,
+      "ts": 1790091793411
+    },
+    {
+      "id": "c_mucufvzr683y",
+      "kidId": "dad",
+      "taskId": "t_dad_work",
+      "date": "2026-09-22",
+      "points": 15,
+      "ts": 1790091804087
+    }
+  ],
+  "reading": [
+    {
+      "kidId": "aiden",
+      "date": "2026-09-15",
+      "minutes": 10,
+      "taskId": "t_read"
+    },
+    {
+      "kidId": "amelia",
+      "taskId": "t_read",
+      "date": "2026-09-16",
+      "minutes": 30
+    },
+    {
+      "kidId": "aiden",
+      "taskId": "t_read",
+      "date": "2026-09-16",
+      "minutes": 40
+    },
+    {
+      "kidId": "amelia",
+      "taskId": "t_english",
+      "date": "2026-09-15",
+      "minutes": 20
+    },
+    {
+      "kidId": "aiden",
+      "taskId": "t_english",
+      "date": "2026-09-15",
+      "minutes": 20
+    },
+    {
+      "kidId": "amelia",
+      "taskId": "t_scholastic",
+      "date": "2026-09-15",
+      "minutes": 15
+    },
+    {
+      "kidId": "amelia",
+      "taskId": "t_english",
+      "date": "2026-09-16",
+      "minutes": 20
+    },
+    {
+      "kidId": "aiden",
+      "taskId": "t_english",
+      "date": "2026-09-16",
+      "minutes": 20
+    },
+    {
+      "kidId": "amelia",
+      "taskId": "t_english",
+      "date": "2026-09-17",
+      "minutes": 50
+    },
+    {
+      "kidId": "amelia",
+      "taskId": "t_read",
+      "date": "2026-09-17",
+      "minutes": 10
+    },
+    {
+      "kidId": "amelia",
+      "taskId": "t_clarinet",
+      "date": "2026-09-17",
+      "minutes": 80
+    },
+    {
+      "kidId": "aiden",
+      "taskId": "t_english",
+      "date": "2026-09-17",
+      "minutes": 10
+    },
+    {
+      "kidId": "aiden",
+      "taskId": "t_read",
+      "date": "2026-09-17",
+      "minutes": 10
+    },
+    {
+      "kidId": "aiden",
+      "taskId": "t_scholastic",
+      "date": "2026-09-17",
+      "minutes": 30
+    },
+    {
+      "kidId": "aiden",
+      "taskId": "t_drum",
+      "date": "2026-09-17",
+      "minutes": 20
+    },
+    {
+      "kidId": "amelia",
+      "taskId": "t_english",
+      "date": "2026-09-18",
+      "minutes": 20
+    },
+    {
+      "kidId": "amelia",
+      "taskId": "t_read",
+      "date": "2026-09-18",
+      "minutes": 20
+    },
+    {
+      "kidId": "aiden",
+      "taskId": "t_english",
+      "date": "2026-09-18",
+      "minutes": 20
+    },
+    {
+      "kidId": "aiden",
+      "taskId": "t_read",
+      "date": "2026-09-18",
+      "minutes": 10
+    },
+    {
+      "kidId": "amelia",
+      "taskId": "t_english",
+      "date": "2026-09-20",
+      "minutes": 10
+    },
+    {
+      "kidId": "amelia",
+      "taskId": "t_read",
+      "date": "2026-09-20",
+      "minutes": 10
+    },
+    {
+      "kidId": "amelia",
+      "taskId": "t_scholastic",
+      "date": "2026-09-20",
+      "minutes": 20
+    },
+    {
+      "kidId": "amelia",
+      "taskId": "t_clarinet",
+      "date": "2026-09-20",
+      "minutes": 20
+    },
+    {
+      "kidId": "aiden",
+      "taskId": "t_english",
+      "date": "2026-09-20",
+      "minutes": 10
+    },
+    {
+      "kidId": "aiden",
+      "taskId": "t_read",
+      "date": "2026-09-20",
+      "minutes": 10
+    },
+    {
+      "kidId": "aiden",
+      "taskId": "t_scholastic",
+      "date": "2026-09-20",
+      "minutes": 20
+    },
+    {
+      "kidId": "aiden",
+      "taskId": "t_drum",
+      "date": "2026-09-20",
+      "minutes": 30
+    },
+    {
+      "kidId": "dad",
+      "taskId": "t_dad_exercise",
+      "date": "2026-09-20",
+      "minutes": 90
+    },
+    {
+      "kidId": "dad",
+      "taskId": "t_dad_swim",
+      "date": "2026-09-20",
+      "minutes": 5
+    },
+    {
+      "kidId": "dad",
+      "taskId": "t_dad_nap",
+      "date": "2026-09-20",
+      "minutes": 10
+    },
+    {
+      "kidId": "dad",
+      "taskId": "t_dad_read_pm",
+      "date": "2026-09-20",
+      "minutes": 80
+    },
+    {
+      "kidId": "dad",
+      "taskId": "t_dad_work",
+      "date": "2026-09-20",
+      "minutes": 265
+    },
+    {
+      "kidId": "amelia",
+      "taskId": "t_english",
+      "date": "2026-09-21",
+      "minutes": 10
+    },
+    {
+      "kidId": "amelia",
+      "taskId": "t_read",
+      "date": "2026-09-21",
+      "minutes": 20
+    },
+    {
+      "kidId": "aiden",
+      "taskId": "t_english",
+      "date": "2026-09-21",
+      "minutes": 20
+    },
+    {
+      "kidId": "aiden",
+      "taskId": "t_read",
+      "date": "2026-09-21",
+      "minutes": 10
+    },
+    {
+      "kidId": "dad",
+      "taskId": "t_dad_exercise",
+      "date": "2026-09-21",
+      "minutes": 5
+    },
+    {
+      "kidId": "dad",
+      "taskId": "t_dad_swim",
+      "date": "2026-09-21",
+      "minutes": 10
+    },
+    {
+      "kidId": "dad",
+      "taskId": "t_dad_nap",
+      "date": "2026-09-21",
+      "minutes": 10
+    },
+    {
+      "kidId": "dad",
+      "taskId": "t_dad_read_pm",
+      "date": "2026-09-21",
+      "minutes": 10
+    },
+    {
+      "kidId": "dad",
+      "taskId": "t_dad_work",
+      "date": "2026-09-21",
+      "minutes": 5
+    },
+    {
+      "kidId": "amelia",
+      "taskId": "t_english",
+      "date": "2026-09-22",
+      "minutes": 20
+    },
+    {
+      "kidId": "amelia",
+      "taskId": "t_read",
+      "date": "2026-09-22",
+      "minutes": 20
+    },
+    {
+      "kidId": "amelia",
+      "taskId": "t_scholastic",
+      "date": "2026-09-22",
+      "minutes": 10
+    },
+    {
+      "kidId": "amelia",
+      "taskId": "t_clarinet",
+      "date": "2026-09-22",
+      "minutes": 10
+    },
+    {
+      "kidId": "aiden",
+      "taskId": "t_english",
+      "date": "2026-09-22",
+      "minutes": 20
+    },
+    {
+      "kidId": "aiden",
+      "taskId": "t_read",
+      "date": "2026-09-22",
+      "minutes": 10
+    },
+    {
+      "kidId": "aiden",
+      "taskId": "t_scholastic",
+      "date": "2026-09-22",
+      "minutes": 20
+    },
+    {
+      "kidId": "aiden",
+      "taskId": "t_drum",
+      "date": "2026-09-22",
+      "minutes": 10
+    },
+    {
+      "kidId": "dad",
+      "taskId": "t_dad_exercise",
+      "date": "2026-09-22",
+      "minutes": 30
+    },
+    {
+      "kidId": "dad",
+      "taskId": "t_dad_swim",
+      "date": "2026-09-22",
+      "minutes": 40
+    },
+    {
+      "kidId": "dad",
+      "taskId": "t_dad_nap",
+      "date": "2026-09-22",
+      "minutes": 40
+    },
+    {
+      "kidId": "dad",
+      "taskId": "t_dad_read_pm",
+      "date": "2026-09-22",
+      "minutes": 30
+    },
+    {
+      "kidId": "dad",
+      "taskId": "t_dad_work",
+      "date": "2026-09-22",
+      "minutes": 60
+    }
+  ],
+  "manualBadges": {},
+  "migratedMorning": true,
+  "migratedTiers": true,
+  "migratedTimedAll": true,
+  "migratedDad": true
+}
